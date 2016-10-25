@@ -1,0 +1,16 @@
+V3 7
+FL C:/Users/edc09/Documents/git/KDS/Aufgabe1/aufgabe1.vhd 2016/10/25.09:32:22 P.15xf
+EN work/aufgabe1 1477381057 \
+      FL C:/Users/edc09/Documents/git/KDS/Aufgabe1/aufgabe1.vhd \
+      PB ieee/std_logic_1164 1335251622
+AR work/aufgabe1/struktur 1477381058 \
+      FL C:/Users/edc09/Documents/git/KDS/Aufgabe1/aufgabe1.vhd EN work/aufgabe1 1477381057 \
+      CP hex4x7seg
+FL C:/Users/edc09/Documents/git/KDS/Aufgabe1/hex4x7seg.vhd 2016/10/25.09:32:22 P.15xf
+EN work/hex4x7seg 1477381055 \
+      FL C:/Users/edc09/Documents/git/KDS/Aufgabe1/hex4x7seg.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625 \
+      PB ieee/NUMERIC_STD 1335251627
+AR work/hex4x7seg/arch 1477381056 \
+      FL C:/Users/edc09/Documents/git/KDS/Aufgabe1/hex4x7seg.vhd \
+      EN work/hex4x7seg 1477381055
