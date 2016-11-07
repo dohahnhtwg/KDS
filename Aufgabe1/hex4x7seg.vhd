@@ -21,22 +21,24 @@ END hex4x7seg;
 --ARCHITECTURE struktur OF hex4x7seg IS
 architecture arch of hex4x7seg is
   -- hier sind benutzerdefinierte Konstanten und Signale einzutragen
-  constant M2_14_N: integer := 15;                    -- number of bits
-  constant M2_14_M: integer := 16384;                 -- mod-M
-  constant M4_N: integer := 2;                        -- number of bits
-  constant M4_M: integer := 4;                        -- mod-M
+  constant M2_14_N: integer := 15;                                      -- number of bits
+  constant M2_14_M: integer := 16384;                                   -- mod-M
+  constant M4_N: integer := 2;                                          -- number of bits
+  constant M4_M: integer := 4;                                          -- mod-M
   
-  signal m2_14_r_reg: unsigned(M2_14_N-1 downto 0);   -- intern register for frequency divider
-  signal m2_14_r_next: unsigned(M2_14_N-1 downto 0);  -- intern register for frequency divider
-  signal clock_out: std_logic;                        -- divided frequency
+  signal m2_14_r_reg: unsigned(M2_14_N-1 downto 0):= (others => '0');   -- intern register for frequency divider
+  signal m2_14_r_next: unsigned(M2_14_N-1 downto 0):= (others => '0');  -- intern register for frequency divider
+  signal clock_out: std_logic;                                          -- divided frequency
   
-  signal m4_r_reg: unsigned(M4_N-1 downto 0);         -- intern register for frequency divider
-  signal m4_r_next: unsigned(M4_N-1 downto 0);        -- intern register for frequency divider
-  signal m4_out: std_logic_vector (M4_N-1 downto 0);  -- output of Modulo-4-Counter
+  signal m4_r_reg: unsigned(M4_N-1 downto 0):= (others => '0');         -- intern register for frequency divider
+  signal m4_r_next: unsigned(M4_N-1 downto 0):= (others => '0');        -- intern register for frequency divider
+  signal m4_out: std_logic_vector (M4_N-1 downto 0):= (others => '0');  -- output of Modulo-4-Counter
 
-  signal oneOutFourMux: std_logic_vector(3 downto 0); -- 1-out-4-4bit-mux output
+  signal oneOutFourMux: std_logic_vector(3 downto 0):= (others => '0'); -- 1-out-4-4bit-mux output
   
-  signal an_sel: std_logic_vector( 3 DOWNTO 0);       -- selector for an
+  signal an_sel: std_logic_vector( 3 DOWNTO 0):= (others => '0');       -- selector for an
+  
+  signal dpin_m4_out: std_logic_vector( 5 DOWNTO 0):= (others => '0');  -- concatenation of dpin and m4_out
 --BEGIN
 begin
 
@@ -89,26 +91,40 @@ begin
                      data(15 downto 12) when others;
    
   -- 7-aus-4-Dekoder als selektierte Signalzuweisung
-  seg <= "0000001" when oneOutFourMux = "0000" else
-         "1001111" when oneOutFourMux = "0001" else
-         "0010010" when oneOutFourMux = "0010" else
-         "0000110" when oneOutFourMux = "0011" else
-         "1001100" when oneOutFourMux = "0100" else
-         "0100100" when oneOutFourMux = "0101" else
-         "0100000" when oneOutFourMux = "0110" else
-         "0001111" when oneOutFourMux = "0111" else
-         "0000000" when oneOutFourMux = "1000" else
-         "0000100" when oneOutFourMux = "1001" else
-         "0001000" when oneOutFourMux = "1010" else --a
-         "1100000" when oneOutFourMux = "1011" else --b
-         "0110001" when oneOutFourMux = "1100" else --c
-         "1000010" when oneOutFourMux = "1101" else --d
-         "0110000" when oneOutFourMux = "1110" else --e
-         "0111000" when oneOutFourMux = "1111";     --f  
+  with oneOutFourMux select
+    seg <= "0000001" when "0000",
+           "1001111" when "0001",
+           "0010010" when "0010",
+           "0000110" when "0011",
+           "1001100" when "0100",
+           "0100100" when "0101",
+           "0100000" when "0110",
+           "0001111" when "0111",
+           "0000000" when "1000",
+           "0000100" when "1001",
+           "0001000" when "1010", --a
+           "1100000" when "1011", --b
+           "0110001" when "1100", --c
+           "1000010" when "1101", --d
+           "0110000" when "1110", --e
+           "0111000" when others; --f 
 
   -- 1-aus-4-Multiplexer als selektierte Signalzuweisung
-  dp <= '0' when (dpin = "0011" and (m4_out = "00" or m4_out = "01")) or (dpin = "1100" and (m4_out = "10" or m4_out = "11")) or dpin = "1111" else
-        '1';
+  dpin_m4_out <= dpin & m4_out;
+  with dpin_m4_out select
+    dp <= '0' when "001100",
+          '0' when "001101",
+          '0' when "110010",
+          '0' when "110011",
+          '0' when "111100",
+          '0' when "111101",
+          '0' when "111110",
+          '0' when "111111",
+          '1' when others;
+          
+  
+  --dp <= '0' when (dpin = "0011" and (m4_out = "00" or m4_out = "01")) or (dpin = "1100" and (m4_out = "10" or m4_out = "11")) or dpin = "1111" else
+  --      '1';
 
 --END struktur;
 end;
