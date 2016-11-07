@@ -80,16 +80,13 @@ begin
               "0111" when others;
   
   an <= an_sel when rst='0' else "1111";
-  
-  --an <= "1111" when rst = '1' else
-  --      "1110" when m4_out = "00" else 
-  --      "1101" when m4_out = "01" else
-  --      "1011" when m4_out = "10" else
-  --      "0111" when m4_out = "11";
 
   -- 1-aus-4-Multiplexer als selektierte Signalzuweisung
-  oneOutFourMux <= data(7 downto 4) when m4_out = "01" or m4_out = "11" else
-		   data(3 downto 0) when m4_out = "00" or m4_out = "10";
+  with m4_out select
+    oneOutFourMux <= data(3 downto 0)   when "00",
+                     data(7 downto 4)   when "01",
+                     data(11 downto 8)  when "10",
+                     data(15 downto 12) when others;
    
   -- 7-aus-4-Dekoder als selektierte Signalzuweisung
   seg <= "0000001" when oneOutFourMux = "0000" else
