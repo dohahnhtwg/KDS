@@ -35,6 +35,8 @@ architecture arch of hex4x7seg is
   signal m4_out: std_logic_vector (M4_N-1 downto 0);  -- output of Modulo-4-Counter
 
   signal oneOutFourMux: std_logic_vector(3 downto 0); -- 1-out-4-4bit-mux output
+  
+  signal an_sel: std_logic_vector( 3 DOWNTO 0);       -- selector for an
 --BEGIN
 begin
 
@@ -70,11 +72,20 @@ begin
   m4_out <= std_logic_vector(m4_r_reg);
 
   -- 1-aus-4-Dekoder als selektierte Signalzuweisung
-  an <= "1111" when rst = '1' else
-        "1110" when m4_out = "00" else 
-        "1101" when m4_out = "01" else
-        "1011" when m4_out = "10" else
-        "0111" when m4_out = "11";
+  
+  with m4_out select
+    an_sel <= "1110" when "00",
+              "1101" when "01",
+              "1011" when "10",
+              "0111" when others;
+  
+  an <= an_sel when rst='0' else "1111";
+  
+  --an <= "1111" when rst = '1' else
+  --      "1110" when m4_out = "00" else 
+  --      "1101" when m4_out = "01" else
+  --      "1011" when m4_out = "10" else
+  --      "0111" when m4_out = "11";
 
   -- 1-aus-4-Multiplexer als selektierte Signalzuweisung
   oneOutFourMux <= data(7 downto 4) when m4_out = "01" or m4_out = "11" else
