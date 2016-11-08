@@ -7,3 +7,8 @@ ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc C:/Users/edc09/Documents/git/K
 map -intstyle ise -p xc3s200-ft256-5 -cm area -ir off -pr off -c 100 -o aufgabe1_map.ncd aufgabe1.ngd aufgabe1.pcf 
 par -w -intstyle ise -ol high -t 1 aufgabe1_map.ncd aufgabe1.ncd aufgabe1.pcf 
 trce -intstyle ise -v 3 -s 5 -n 3 -fastpaths -xml aufgabe1.twx aufgabe1.ncd -o aufgabe1.twr aufgabe1.pcf 
+xst -intstyle ise -ifn "C:/Users/edc11/Documents/git/KDS/Aufgabe1/Aufgabe1/xwork/aufgabe1.xst" -ofn "C:/Users/edc11/Documents/git/KDS/Aufgabe1/Aufgabe1/xwork/aufgabe1.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc C:/Users/edc11/Documents/git/KDS/Aufgabe1/aufgabe1.ucf -p xc3s200-ft256-5 aufgabe1.ngc aufgabe1.ngd  
+map -intstyle ise -p xc3s200-ft256-5 -cm area -ir off -pr off -c 100 -o aufgabe1_map.ncd aufgabe1.ngd aufgabe1.pcf 
+par -w -intstyle ise -ol high -t 1 aufgabe1_map.ncd aufgabe1.ncd aufgabe1.pcf 
+trce -intstyle ise -v 3 -s 5 -n 3 -fastpaths -xml aufgabe1.twx aufgabe1.ncd -o aufgabe1.twr aufgabe1.pcf 

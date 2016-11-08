@@ -9,12 +9,13 @@ Target Device  : xc3s200
 Target Package : ft256
 Target Speed   : -5
 Mapper Version : spartan3 -- $Revision: 1.55 $
-Mapped Date    : Tue Oct 25 09:44:50 2016
+Mapped Date    : Tue Nov 08 09:39:11 2016
 
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 INFO:Security:51 - The XILINXD_LICENSE_FILE environment variable is not set.
 INFO:Security:52 - The LM_LICENSE_FILE environment variable is set to
-'c:\xilinx\xilinx.lic;27001@ain-flexlm.in.htwg-konstanz.de'.
+'27001@ain-flexlm.in.htwg-konstanz.de;c:\xilinx\xilinx.lic;27001@ain-flexlm.in.h
+twg-konstanz.de'.
 INFO:Security:54 - 'xc3s200' is a WebPack part.
 WARNING:Security:43 - No license file was found in the standard Xilinx license
 directory.
@@ -61,9 +62,9 @@ Logic Distribution:
 
 Average Fanout of Non-Clock Nets:                2.04
 
-Peak Memory Usage:  220 MB
-Total REAL time to MAP completion:  0 secs 
-Total CPU time to MAP completion:   0 secs 
+Peak Memory Usage:  244 MB
+Total REAL time to MAP completion:  7 secs 
+Total CPU time to MAP completion:   1 secs 
 
 NOTES:
 

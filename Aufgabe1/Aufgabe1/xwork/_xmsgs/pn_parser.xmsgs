@@ -8,5 +8,8 @@
 <!-- Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.    -->
 
 <messages>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;C:/Users/edc11/Documents/git/KDS/Aufgabe1/hex4x7seg.vhd&quot; into library work</arg>
+</msg>
+
 </messages>
 

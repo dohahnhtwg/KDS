@@ -21,14 +21,11 @@ END hex4x7seg;
 --ARCHITECTURE struktur OF hex4x7seg IS
 architecture arch of hex4x7seg is
   -- hier sind benutzerdefinierte Konstanten und Signale einzutragen
-  constant M2_14_N: integer := 15;                                      -- number of bits
-  constant M2_14_M: integer := 16384;                                   -- mod-M
+  constant M2_14_M: natural := 16384; 									-- mod-M
   constant M4_N: integer := 2;                                          -- number of bits
   constant M4_M: integer := 4;                                          -- mod-M
   
-  signal m2_14_r_reg: unsigned(M2_14_N-1 downto 0):= (others => '0');   -- intern register for frequency divider
-  signal m2_14_r_next: unsigned(M2_14_N-1 downto 0):= (others => '0');  -- intern register for frequency divider
-  signal clock_out: std_logic;                                          -- divided frequency
+  signal clock_out: integer range 0 to M2_14_M-1;
   
   signal m4_r_reg: unsigned(M4_N-1 downto 0):= (others => '0');         -- intern register for frequency divider
   signal m4_r_next: unsigned(M4_N-1 downto 0):= (others => '0');        -- intern register for frequency divider
@@ -43,20 +40,17 @@ architecture arch of hex4x7seg is
 begin
 
   -- Modulo-2**14-Zaehler als Prozess
-  process (clk, rst)
-  begin
-    -- register
-    if(rst = '1') then
-      m2_14_r_reg <= (others=>'0');
-    elsif rising_edge(clk) then
-      m2_14_r_reg <= m2_14_r_next;
+  process (rst, clk) begin
+    if rst='1' then
+      clock_out <= 0;
+	elsif rising_edge(clk) then
+      if clock_out=M2_14_M-1 then
+        clock_out <= 0;
+      else
+        clock_out <= clock_out + 1;
+      end if;
     end if;
   end process;
-
-  -- next-state logic
-  m2_14_r_next <= (others=>'0') when m2_14_r_reg=(M2_14_M-1) else m2_14_r_reg + 1;
-  -- output logic
-  clock_out <= '1' when m2_14_r_reg=(M2_14_M-1) else '0';
    
   -- Modulo-4-Zaehler als Prozess
   process (clock_out, rst)
@@ -64,7 +58,7 @@ begin
     -- register
     if(rst = '1') then
       m4_r_reg <= (others=>'0');
-    elsif rising_edge(clock_out) then
+    elsif clock_out=M2_14_M-1 then
       m4_r_reg <= m4_r_next;
     end if; 
   end process;
