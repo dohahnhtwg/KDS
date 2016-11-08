@@ -1,7 +1,7 @@
 Release 14.1 par P.15xf (nt64)
 Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
 
-EDC11-PC::  Tue Nov 08 11:11:19 2016
+EDC11-PC::  Tue Nov 08 11:28:39 2016
 
 par -w -intstyle ise -ol high -t 1 aufgabe1_map.ncd aufgabe1.ncd aufgabe1.pcf 
 
@@ -186,7 +186,7 @@ All signals are completely routed.
 Total REAL time to PAR completion: 2 secs 
 Total CPU time to PAR completion: 2 secs 
 
-Peak Memory Usage:  247 MB
+Peak Memory Usage:  245 MB
 
 Placement: Completed - No errors found.
 Routing: Completed - No errors found.

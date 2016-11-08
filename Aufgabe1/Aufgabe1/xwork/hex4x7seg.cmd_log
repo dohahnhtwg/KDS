@@ -1,0 +1,1 @@
+vhdtdtfi -prj Aufgabe1 -o C:/Users/edc11/Documents/git/KDS/Aufgabe1/Aufgabe1/xwork/hex4x7seg.tfi -module hex4x7seg -template C:/Xilinx/14.1/ISE_DS/ISE//data/tfi.tft -deleteonerror -lib work ../../hex4x7seg.vhd 

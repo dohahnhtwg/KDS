@@ -1,0 +1,17 @@
+#:C0     
+#Xilinx FPGA Editor Command Log File
+#Editor Version:
+#:V   NT M2.1 P.15xf
+#Current Working Directory:
+#:D   C:\Users\edc11\Documents\git\KDS\Aufgabe1\Aufgabe1\xwork
+#Date/Time:
+#:T   Tue Nov 08 11:41:03 2016
+#------------------------------
+	#Reading aufgabe1_map.ncd...
+	#Loading device for application Rf_Device from file '3s200.nph' in environment C:\Xilinx\14.1\ISE_DS\ISE\.
+	#   "aufgabe1" is an NCD, version 3.2, device xc3s200, package ft256, speed -5
+	#Design creation date: 2016.11.08.10.28.36
+	#Building chip graphics...
+	#Loading speed info...
+	#1
+setattr main edit-mode no-logic-changes
