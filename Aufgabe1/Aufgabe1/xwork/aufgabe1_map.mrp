@@ -9,23 +9,23 @@ Target Device  : xc3s200
 Target Package : ft256
 Target Speed   : -5
 Mapper Version : spartan3 -- $Revision: 1.55 $
-Mapped Date    : Tue Nov 08 09:39:11 2016
+Mapped Date    : Tue Nov 08 11:11:15 2016
 
 Design Summary
 --------------
 Number of errors:      0
-Number of warnings:    1
+Number of warnings:    0
 Logic Utilization:
   Number of Slice Flip Flops:            17 out of   3,840    1%
-  Number of 4 input LUTs:                38 out of   3,840    1%
+  Number of 4 input LUTs:                37 out of   3,840    1%
 Logic Distribution:
-  Number of occupied Slices:             29 out of   1,920    1%
-    Number of Slices containing only related logic:      29 out of      29 100%
-    Number of Slices containing unrelated logic:          0 out of      29   0%
+  Number of occupied Slices:             27 out of   1,920    1%
+    Number of Slices containing only related logic:      27 out of      27 100%
+    Number of Slices containing unrelated logic:          0 out of      27   0%
       *See NOTES below for an explanation of the effects of unrelated logic.
-  Total Number of 4 input LUTs:          52 out of   3,840    1%
-    Number used as logic:                38
-    Number used as a route-thru:         14
+  Total Number of 4 input LUTs:          50 out of   3,840    1%
+    Number used as logic:                37
+    Number used as a route-thru:         13
 
   The Slice Logic Distribution report is not meaningful if the design is
   over-mapped for a non-slice resource or if Placement fails.
@@ -33,11 +33,11 @@ Logic Distribution:
   Number of bonded IOBs:                 24 out of     173   13%
   Number of BUFGMUXs:                     1 out of       8   12%
 
-Average Fanout of Non-Clock Nets:                2.04
+Average Fanout of Non-Clock Nets:                2.25
 
-Peak Memory Usage:  244 MB
-Total REAL time to MAP completion:  7 secs 
-Total CPU time to MAP completion:   1 secs 
+Peak Memory Usage:  245 MB
+Total REAL time to MAP completion:  0 secs 
+Total CPU time to MAP completion:   0 secs 
 
 NOTES:
 
@@ -84,9 +84,6 @@ WARNING:Security:44 - Since no license file was found,
 WARNING:Security:42 - Your software subscription period has lapsed. Your current
 version of Xilinx tools will continue to function, but you no longer qualify for
 Xilinx software updates or new releases.
-WARNING:PhysDesignRules:372 - Gated clock. Clock net u1/clock_out is sourced by
-   a combinatorial pin. This is not good design practice. Use the CE pin to
-   control the loading of data into the flip-flop.
 
 Section 3 - Informational
 -------------------------

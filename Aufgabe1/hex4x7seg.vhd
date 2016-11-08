@@ -21,15 +21,14 @@ END hex4x7seg;
 --ARCHITECTURE struktur OF hex4x7seg IS
 architecture arch of hex4x7seg is
   -- hier sind benutzerdefinierte Konstanten und Signale einzutragen
-  constant M2_14_M: natural := 16384; 									-- mod-M
-  constant M4_N: integer := 2;                                          -- number of bits
-  constant M4_M: integer := 4;                                          -- mod-M
+  constant CLOCK_DIVIDER_N: natural := 16384; 							-- mod-N for clock divider
+  constant M4_COUNTER_N: natural := 4;                                  -- mod-N for m4-counter
+  constant M4_COUNTER_BITS: integer := 2;                               -- number of bits
   
-  signal clock_out: integer range 0 to M2_14_M-1;
+  signal clock_divider_counter: integer range 0 to CLOCK_DIVIDER_N-1;   -- counter for the clock divider
+  signal clock_divider_out: std_logic;                                  -- clock divider output (rising edge)
   
-  signal m4_r_reg: unsigned(M4_N-1 downto 0):= (others => '0');         -- intern register for frequency divider
-  signal m4_r_next: unsigned(M4_N-1 downto 0):= (others => '0');        -- intern register for frequency divider
-  signal m4_out: std_logic_vector (M4_N-1 downto 0):= (others => '0');  -- output of Modulo-4-Counter
+  signal m4_out: std_logic_vector (M4_COUNTER_BITS-1 downto 0):= (others => '0');  -- output of Modulo-4-Counter
 
   signal oneOutFourMux: std_logic_vector(3 downto 0):= (others => '0'); -- 1-out-4-4bit-mux output
   
@@ -42,30 +41,31 @@ begin
   -- Modulo-2**14-Zaehler als Prozess
   process (rst, clk) begin
     if rst='1' then
-      clock_out <= 0;
+      clock_divider_counter <= 0;
+	  clock_divider_out <= '0';
 	elsif rising_edge(clk) then
-      if clock_out=M2_14_M-1 then
-        clock_out <= 0;
+	  clock_divider_out <= '0';
+      if clock_divider_counter=CLOCK_DIVIDER_N-1 then
+        clock_divider_counter <= 0;
+		clock_divider_out <= '1';
       else
-        clock_out <= clock_out + 1;
+        clock_divider_counter <= clock_divider_counter + 1;
       end if;
     end if;
   end process;
    
   -- Modulo-4-Zaehler als Prozess
-  process (clock_out, rst)
-  begin
-    -- register
-    if(rst = '1') then
-      m4_r_reg <= (others=>'0');
-    elsif clock_out=M2_14_M-1 then
-      m4_r_reg <= m4_r_next;
-    end if; 
+  process (rst, clock_divider_out) begin
+    if rst='1' then
+	  m4_out <= (others => '0');
+	elsif rising_edge(clock_divider_out) then
+	  if m4_out=M4_COUNTER_N-1 then
+	    m4_out <= (others => '0');
+	  else
+	    m4_out <= m4_out + 1;
+	  end if;
+	end if;
   end process;
-  -- next-state logic
-  m4_r_next <= (others=>'0') when m4_r_reg=(M4_M-1) else m4_r_reg + 1;
-  -- output logic
-  m4_out <= std_logic_vector(m4_r_reg);
 
   -- 1-aus-4-Dekoder als selektierte Signalzuweisung
   
@@ -115,10 +115,6 @@ begin
           '0' when "111110",
           '0' when "111111",
           '1' when others;
-          
-  
-  --dp <= '0' when (dpin = "0011" and (m4_out = "00" or m4_out = "01")) or (dpin = "1100" and (m4_out = "10" or m4_out = "11")) or dpin = "1111" else
-  --      '1';
 
 --END struktur;
 end;
