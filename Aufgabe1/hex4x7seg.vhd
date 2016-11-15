@@ -21,49 +21,44 @@ END hex4x7seg;
 --ARCHITECTURE struktur OF hex4x7seg IS
 architecture arch of hex4x7seg is
   -- hier sind benutzerdefinierte Konstanten und Signale einzutragen
-  constant CLOCK_DIVIDER_N: natural := 16384; 							-- mod-N for clock divider
-  constant M4_COUNTER_N: natural := 4;                                  -- mod-N for m4-counter
-  constant M4_COUNTER_BITS: integer := 2;                               -- number of bits
+  constant CLOCK_DIVIDER_N: natural := 2**14; 							                   -- mod-N for clock divider
+  constant CLOCK_DIVIDER_N_BITS: integer := 14; 							                -- mod-N for clock divider
+  constant M4_COUNTER_N: natural := 4;                                               -- mod-N for m4-counter
+  constant M4_COUNTER_BITS: integer := 2;                                            -- number of bits
   
-  signal clock_divider_counter: integer range 0 to CLOCK_DIVIDER_N-1;   -- counter for the clock divider
-  signal clock_divider_out: std_logic;                                  -- clock divider output (rising edge)
+  signal clock_divider_counter: std_logic_vector (CLOCK_DIVIDER_N_BITS-1 downto 0);  -- output of Modulo-4-Counter
+  signal clock_divider_out: std_logic;                                               -- clock divider output (rising edge)
   
-  signal m4_out: std_logic_vector (M4_COUNTER_BITS-1 downto 0):= (others => '0');  -- output of Modulo-4-Counter
+  signal m4_out: std_logic_vector (M4_COUNTER_BITS-1 downto 0);                      -- output of Modulo-4-Counter
 
-  signal oneOutFourMux: std_logic_vector(3 downto 0):= (others => '0'); -- 1-out-4-4bit-mux output
+  signal oneOutFourMux: std_logic_vector(3 downto 0);                                -- 1-out-4-4bit-mux output
   
-  signal an_sel: std_logic_vector( 3 DOWNTO 0):= (others => '0');       -- selector for an
-  
-  signal dpin_m4_out: std_logic_vector( 5 DOWNTO 0):= (others => '0');  -- concatenation of dpin and m4_out
+  signal an_sel: std_logic_vector( 3 DOWNTO 0);                                      -- selector for an
 --BEGIN
 begin
 
   -- Modulo-2**14-Zaehler als Prozess
   process (rst, clk) begin
-    if rst='1' then
-      clock_divider_counter <= 0;
-	  clock_divider_out <= '0';
-	elsif rising_edge(clk) then
-	  clock_divider_out <= '0';
-      if clock_divider_counter=CLOCK_DIVIDER_N-1 then
-        clock_divider_counter <= 0;
-		clock_divider_out <= '1';
-      else
-        clock_divider_counter <= clock_divider_counter + 1;
+    if rst=RSTDEF then
+      clock_divider_counter <= (others => '0');
+      clock_divider_out <= '0';
+    elsif rising_edge(clk) then
+      clock_divider_out <= '0';
+      if clock_divider_counter = CLOCK_DIVIDER_N - 1 then
+        clock_divider_out <= '1';
       end if;
+      clock_divider_counter <= clock_divider_counter + 1;
     end if;
   end process;
    
   -- Modulo-4-Zaehler als Prozess
-  process (rst, clock_divider_out) begin
-    if rst='1' then
+  process (rst, clk) begin
+    if rst=RSTDEF then
 	  m4_out <= (others => '0');
-	elsif rising_edge(clock_divider_out) then
-	  if m4_out=M4_COUNTER_N-1 then
-	    m4_out <= (others => '0');
-	  else
+	elsif rising_edge(clk) then
+     if clock_divider_out='1' then
 	    m4_out <= m4_out + 1;
-	  end if;
+     end if;
 	end if;
   end process;
 
@@ -75,7 +70,7 @@ begin
               "1011" when "10",
               "0111" when others;
   
-  an <= an_sel when rst='0' else "1111";
+  an <= an_sel when rst=NOT RSTDEF else "1111";
 
   -- 1-aus-4-Multiplexer als selektierte Signalzuweisung
   with m4_out select
@@ -103,18 +98,11 @@ begin
            "0110000" when "1110", --e
            "0111000" when others; --f 
 
-  -- 1-aus-4-Multiplexer als selektierte Signalzuweisung
-  dpin_m4_out <= dpin & m4_out;
-  with dpin_m4_out select
-    dp <= '0' when "001100",
-          '0' when "001101",
-          '0' when "110010",
-          '0' when "110011",
-          '0' when "111100",
-          '0' when "111101",
-          '0' when "111110",
-          '0' when "111111",
-          '1' when others;
-
+  WITH m4_out SELECT
+    dp <= NOT dpin(0) WHEN "00",
+          NOT dpin(1) WHEN "01",
+          NOT dpin(2) WHEN "10",
+          NOT dpin(3) WHEN OTHERS;
+            
 --END struktur;
 end;

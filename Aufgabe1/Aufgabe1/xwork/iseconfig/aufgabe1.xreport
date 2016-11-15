@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2016-11-08T11:39:09</DateModified>
+  <DateModified>2016-11-15T11:09:38</DateModified>
   <ModuleName>aufgabe1</ModuleName>
-  <SummaryTimeStamp>2016-11-08T11:28:45</SummaryTimeStamp>
-  <SavedFilePath>C:/Users/edc11/Documents/git/KDS/Aufgabe1/Aufgabe1/xwork/iseconfig/aufgabe1.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>C:/Users/edc11/Documents/git/KDS/Aufgabe1/Aufgabe1/xwork\</ImplementationReportsDirectory>
+  <SummaryTimeStamp>2016-11-15T11:09:38</SummaryTimeStamp>
+  <SavedFilePath>C:/Users/edc09/Documents/git/KDS/Aufgabe1/Aufgabe1/xwork/iseconfig/aufgabe1.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>C:/Users/edc09/Documents/git/KDS/Aufgabe1/Aufgabe1/xwork\</ImplementationReportsDirectory>
   <DateInitialized>2016-10-25T09:35:53</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>

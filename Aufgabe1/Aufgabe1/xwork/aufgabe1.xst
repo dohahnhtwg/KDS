@@ -8,7 +8,7 @@ run
 -p xc3s200-5-ft256
 -top aufgabe1
 -opt_mode Speed
--opt_level 1
+-opt_level 2
 -iuc NO
 -keep_hierarchy No
 -netlist_hierarchy As_Optimized

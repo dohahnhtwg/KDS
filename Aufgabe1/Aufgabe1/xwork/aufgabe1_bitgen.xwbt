@@ -1,0 +1,8 @@
+INTSTYLE=ise
+INFILE=C:\Users\edc09\Documents\git\KDS\Aufgabe1\Aufgabe1\xwork\aufgabe1.ncd
+OUTFILE=C:\Users\edc09\Documents\git\KDS\Aufgabe1\Aufgabe1\xwork\aufgabe1.bit
+FAMILY=Spartan3
+PART=xc3s200-5ft256
+WORKINGDIR=C:\Users\edc09\Documents\git\KDS\Aufgabe1\Aufgabe1\xwork
+LICENSE=WebPack
+USER_INFO=175830942_175830944_0_030

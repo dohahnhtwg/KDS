@@ -5,15 +5,15 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <DeviceUsageSummary rev="5">
-<DesignStatistics TimeStamp="Tue Nov 08 11:28:36 2016"><group name="MiscellaneousStatistics">
+<DesignStatistics TimeStamp="Tue Nov 15 11:23:04 2016"><group name="MiscellaneousStatistics">
 <item name="AGG_BONDED_IO" rev="5">
 <attrib name="value" value="24"/></item>
 <item name="AGG_IO" rev="5">
 <attrib name="value" value="24"/></item>
 <item name="AGG_SLICE" rev="5">
-<attrib name="value" value="27"/></item>
+<attrib name="value" value="20"/></item>
 <item name="NUM_4_INPUT_LUT" rev="5">
-<attrib name="value" value="50"/></item>
+<attrib name="value" value="36"/></item>
 <item name="NUM_BONDED_IOB" rev="5">
 <attrib name="value" value="24"/></item>
 <item name="NUM_BUFGMUX" rev="5">
@@ -23,7 +23,7 @@
 <item name="NUM_LUT_RT" rev="5">
 <attrib name="value" value="13"/></item>
 <item name="NUM_SLICEL" rev="5">
-<attrib name="value" value="27"/></item>
+<attrib name="value" value="20"/></item>
 <item name="NUM_SLICE_FF" rev="5">
 <attrib name="value" value="17"/></item>
 <item name="NUM_XOR" rev="5">
