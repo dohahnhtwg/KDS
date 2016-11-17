@@ -1,7 +1,7 @@
 Release 14.1 par P.15xf (nt64)
 Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
 
-EDC09-PC::  Tue Nov 15 11:23:06 2016
+EDC09-PC::  Tue Nov 15 12:42:07 2016
 
 par -w -intstyle ise -ol high -t 1 aufgabe1_map.ncd aufgabe1.ncd aufgabe1.pcf 
 
@@ -115,13 +115,13 @@ Phase  6  : 0 unrouted; (Par is working to improve performance)     REAL time: 1
 
 Phase  7  : 0 unrouted; (Par is working to improve performance)     REAL time: 1 secs 
 
-Phase  8  : 0 unrouted; (Par is working to improve performance)     REAL time: 2 secs 
+Phase  8  : 0 unrouted; (Par is working to improve performance)     REAL time: 1 secs 
 
-Phase  9  : 0 unrouted; (Par is working to improve performance)     REAL time: 2 secs 
+Phase  9  : 0 unrouted; (Par is working to improve performance)     REAL time: 1 secs 
 
-Phase 10  : 0 unrouted; (Par is working to improve performance)     REAL time: 2 secs 
+Phase 10  : 0 unrouted; (Par is working to improve performance)     REAL time: 1 secs 
 
-Total REAL time to Router completion: 2 secs 
+Total REAL time to Router completion: 1 secs 
 Total CPU time to Router completion: 1 secs 
 
 Partition Implementation Status

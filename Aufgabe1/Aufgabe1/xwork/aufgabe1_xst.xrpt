@@ -5,7 +5,7 @@
     The structure and the elements are likely to change over the next few releases.
     This means code written to parse this file will need to be revisited each subsequent release.-->
 
-  <application stringID="Xst" timeStamp="Tue Nov 15 11:22:51 2016">
+  <application stringID="Xst" timeStamp="Tue Nov 15 12:41:52 2016">
     <section stringID="User_Env">
       <table stringID="User_EnvVar">
         <column stringID="variable"/>
@@ -110,7 +110,7 @@
       <item DEFAULT="0%" label="-slice_utilization_ratio_maxmargin" stringID="XST_SLICEUTILIZATIONRATIOMAXMARGIN" value="5"/>
     </section>
     <section stringID="XST_HDL_SYNTHESIS_REPORT">
-      <item dataType="int" stringID="XST_ROMS" value="1">
+      <item dataType="int" stringID="XST_ROMS" value="2">
         <item dataType="int" stringID="XST_16X7BIT_ROM" value="1"/>
       </item>
       <item dataType="int" stringID="XST_COUNTERS" value="2">
@@ -124,7 +124,7 @@
       </item>
     </section>
     <section stringID="XST_ADVANCED_HDL_SYNTHESIS_REPORT">
-      <item dataType="int" stringID="XST_ROMS" value="1">
+      <item dataType="int" stringID="XST_ROMS" value="2">
         <item dataType="int" stringID="XST_16X7BIT_ROM" value="1"/>
       </item>
       <item dataType="int" stringID="XST_COUNTERS" value="2">

@@ -23,7 +23,6 @@ architecture arch of hex4x7seg is
   -- hier sind benutzerdefinierte Konstanten und Signale einzutragen
   constant CLOCK_DIVIDER_N: natural := 2**14; 							                   -- mod-N for clock divider
   constant CLOCK_DIVIDER_N_BITS: integer := 14; 							                -- mod-N for clock divider
-  constant M4_COUNTER_N: natural := 4;                                               -- mod-N for m4-counter
   constant M4_COUNTER_BITS: integer := 2;                                            -- number of bits
   
   signal clock_divider_counter: std_logic_vector (CLOCK_DIVIDER_N_BITS-1 downto 0);  -- output of Modulo-4-Counter
@@ -65,19 +64,19 @@ begin
   -- 1-aus-4-Dekoder als selektierte Signalzuweisung
   
   with m4_out select
-    an_sel <= "1110" when "00",
-              "1101" when "01",
-              "1011" when "10",
-              "0111" when others;
+    an_sel <= "0111" when "00",
+              "1011" when "01",
+              "1101" when "10",
+              "1110" when others;
   
-  an <= an_sel when rst=NOT RSTDEF else "1111";
+  an <= "1111" when rst = RSTDEF else an_sel;
 
   -- 1-aus-4-Multiplexer als selektierte Signalzuweisung
   with m4_out select
-    oneOutFourMux <= data(3 downto 0)   when "00",
-                     data(7 downto 4)   when "01",
-                     data(11 downto 8)  when "10",
-                     data(15 downto 12) when others;
+    oneOutFourMux <= data(15 downto 12)   when "00",
+                     data(11 downto 8)   when "01",
+                     data(7 downto 4)  when "10",
+                     data(3 downto 0) when others;
    
   -- 7-aus-4-Dekoder als selektierte Signalzuweisung
   with oneOutFourMux select
@@ -99,10 +98,10 @@ begin
            "0111000" when others; --f 
 
   WITH m4_out SELECT
-    dp <= NOT dpin(0) WHEN "00",
-          NOT dpin(1) WHEN "01",
-          NOT dpin(2) WHEN "10",
-          NOT dpin(3) WHEN OTHERS;
+    dp <= NOT dpin(3) WHEN "00",
+          NOT dpin(2) WHEN "01",
+          NOT dpin(1) WHEN "10",
+          NOT dpin(0) WHEN OTHERS;
             
 --END struktur;
 end;
