@@ -36,7 +36,7 @@ R2
 R3
 R4
 R5
-Z15 DEx4 work 11 std_counter 0 22 4Io[:AeNH@b>08cSNndU32
+DEx4 work 11 std_counter 0 22 4Io[:AeNH@b>08cSNndU32
 l30
 L25
 V42<?_Mf?EinnEHLf3?dCQ1
@@ -48,6 +48,45 @@ R9
 R10
 R11
 R12
+!i113 1
+R13
+R14
+Estd_counter_test
+Z15 w1479759554
+R4
+R5
+R0
+Z16 8C:/Users/GAAB/Documents/fh_konstanz/semester7/KDS/git/Aufgabe2/std_counter_tb.vhd
+Z17 FC:/Users/GAAB/Documents/fh_konstanz/semester7/KDS/git/Aufgabe2/std_counter_tb.vhd
+l0
+L4
+VMG@5jg[ncNGc2E4U_FVG13
+!s100 lmL>2;_]A56bNV8aJ6XZO2
+R8
+32
+Z18 !s110 1479759565
+!i10b 1
+Z19 !s108 1479759565.000000
+Z20 !s90 -reportprogress|300|-work|workA2|-O0|C:/Users/GAAB/Documents/fh_konstanz/semester7/KDS/git/Aufgabe2/std_counter_tb.vhd|
+Z21 !s107 C:/Users/GAAB/Documents/fh_konstanz/semester7/KDS/git/Aufgabe2/std_counter_tb.vhd|
+!i113 1
+R13
+R14
+Atest
+R4
+R5
+Z22 DEx4 work 16 std_counter_test 0 22 MG@5jg[ncNGc2E4U_FVG13
+l38
+L8
+V7CT[L1d=?c@iMdccnFYUT1
+!s100 045eKe7jX]Ii8<EGidmPF1
+R8
+32
+R18
+!i10b 1
+R19
+R20
+R21
 !i113 1
 R13
 R14
