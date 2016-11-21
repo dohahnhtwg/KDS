@@ -3,6 +3,10 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
 
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.std_logic_unsigned.ALL;
+
 ENTITY std_counter IS
    GENERIC(RSTDEF: std_logic := '1';
            CNTLEN: natural   := 4);
@@ -13,11 +17,49 @@ ENTITY std_counter IS
         dec:   IN  std_logic;  -- decrement,       high active
         load:  IN  std_logic;  -- load value,      high active
         swrst: IN  std_logic;  -- software reset,  RSTDEF active
-        cout:  OUT std_logic;  -- carry,           high active        
+        cout:  OUT std_logic;  -- carry,           high active
         din:   IN  std_logic_vector(CNTLEN-1 DOWNTO 0);
         dout:  OUT std_logic_vector(CNTLEN-1 DOWNTO 0));
 END std_counter;
 
+architecture behavioral of std_counter is
+  signal load_prev_clock: std_logic;
+  signal inc_prev_clock: std_logic;
+  signal dec_prev_clock: std_logic;
+  signal counter: std_logic_vector(CNTLEN-1 DOWNTO 0);
+begin
+
+  dout <= counter;
+
+  -- Resets
+  process (clk, rst) is
+  begin
+    -- asynchrones Reset
+    if rst = RSTDEF then
+      counter <= (others => '0');
+    -- synchrones  Reset
+    elsif rising_edge(clk) then
+      if swrst = '1' then
+        counter <= (others => '0');
+      -- enable
+      elsif en = '1' then
+        if load_prev_clock = '0' and load = '1' then
+          counter <= din;
+        elsif inc_prev_clock = '1' and inc = '0' then
+          counter <= counter + 1;
+        elsif dec_prev_clock = '1' and dec = '0' then
+          counter <= counter - 1;
+        else
+          counter <= counter;
+        end if;
+      end if;
+      load_prev_clock <= load;
+      inc_prev_clock <= inc;
+      dec_prev_clock <= dec;
+    end if;
+  end process;
+
+end behavioral;
 --
 -- Funktionstabelle
 -- rst clk swrst en  load dec inc | Aktion
