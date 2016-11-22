@@ -46,9 +46,9 @@ begin
         if load_prev_clock = '0' and load = '1' then
           counter <= din;
         elsif inc_prev_clock = '1' and inc = '0' then
-          counter <= counter + 1;
-        elsif dec_prev_clock = '1' and dec = '0' then
           counter <= counter - 1;
+        elsif dec_prev_clock = '1' and dec = '0' then
+          counter <= counter + 1;
         else
           counter <= counter;
         end if;

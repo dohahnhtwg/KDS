@@ -55,18 +55,68 @@ BEGIN
 
   PROCEDURE test1 IS
   BEGIN
-    ASSERT FALSE REPORT "test1..." SEVERITY note;
+    ASSERT FALSE REPORT "inc test..." SEVERITY note;
     WAIT UNTIL clk'EVENT AND clk='1' AND dout = "0000";
     inc <= '1';
     WAIT UNTIL clk'EVENT AND clk='1';
-    ASSERT dout = "0000" REPORT "Wrong counter" SEVERITY error;
+    inc <= '0';
+    WAIT UNTIL clk'EVENT AND clk='1';
+    ASSERT dout = "0000" REPORT "Did increase with enable 0" SEVERITY error;
+    en <= '1';
+    inc <= '1';
+    WAIT UNTIL clk'EVENT AND clk='1';
+    ASSERT dout = "0000" REPORT "Did increase on open" SEVERITY error;
+    inc <= '0';
+    WAIT UNTIL clk'EVENT AND clk='1';
+    WAIT UNTIL clk'EVENT AND clk='1'; -- Frage: Normal das eine zweite Taktflanke gewartet werden muss
+    ASSERT dout = "0001" REPORT "Didnt increase on close" SEVERITY error;
+  END PROCEDURE;
 
+  PROCEDURE test2 IS
+  BEGIN
+    ASSERT FALSE REPORT "dec test..." SEVERITY note;
+    WAIT UNTIL clk'EVENT AND clk='1' AND dout = "0000";
+    dec <= '1';
+    WAIT UNTIL clk'EVENT AND clk='1';
+    dec <= '0';
+    WAIT UNTIL clk'EVENT AND clk='1';
+    ASSERT dout = "0000" REPORT "Did decrease with enable 0" SEVERITY error;
+    en <= '1';
+    dec <= '1';
+    WAIT UNTIL clk'EVENT AND clk='1';
+    ASSERT dout = "0000" REPORT "Did decrease on open" SEVERITY error;
+    dec <= '0';
+    WAIT UNTIL clk'EVENT AND clk='1';
+    WAIT UNTIL clk'EVENT AND clk='1'; -- Frage: Normal das eine zweite Taktflanke gewartet werden muss
+    ASSERT dout = "1111" REPORT "Didnt decrease on close" SEVERITY error;
+  END PROCEDURE;
+
+  PROCEDURE test3 IS
+  BEGIN
+    ASSERT FALSE REPORT "load test..." SEVERITY note;
+    din <= "0100";
+    WAIT UNTIL clk'EVENT AND clk='1' AND dout = "0000";
+    load <= '1';
+    WAIT UNTIL clk'EVENT AND clk='1';
+    load <= '0';
+    WAIT UNTIL clk'EVENT AND clk='1';
+    ASSERT dout = "0000" REPORT "Did load with enable 0" SEVERITY error;
+    en <= '1';
+    load <= '1';
+    WAIT UNTIL clk'EVENT AND clk='1';
+    WAIT UNTIL clk'EVENT AND clk='1'; -- Frage: Normal das eine zweite Taktflanke gewartet werden muss
+    ASSERT dout = "0100" REPORT "Didnt load on open" SEVERITY error;
+    load <= '0';
+    WAIT UNTIL clk'EVENT AND clk='1';
+    ASSERT dout = "0100" REPORT "Did load on close" SEVERITY error;
   END PROCEDURE;
 
   BEGIN
     WAIT UNTIL clk'EVENT AND clk='1' AND rst=(NOT RSTDEF);
 
-    test1;
+    --test1;
+    --test2;
+    test3;
 
     ASSERT FALSE REPORT "done" SEVERITY note;
 
