@@ -7,13 +7,13 @@ USE ieee.numeric_std.ALL;
 ENTITY sync_buffer IS
   GENERIC(RSTDEF:  std_logic := '1');
   PORT(rst:    IN  std_logic;  -- reset, RSTDEF active
-      clk:    IN  std_logic;  -- clock, rising edge
-      en:     IN  std_logic;  -- enable, high active
-      swrst:  IN  std_logic;  -- software reset, RSTDEF active
-      din:    IN  std_logic;  -- data bit, input
-      dout:   OUT std_logic;  -- data bit, output
-      redge:  OUT std_logic;  -- rising  edge on din detected
-      fedge:  OUT std_logic); -- falling edge on din detected
+       clk:    IN  std_logic;  -- clock, rising edge
+       en:     IN  std_logic;  -- enable, high active
+       swrst:  IN  std_logic;  -- software reset, RSTDEF active
+       din:    IN  std_logic;  -- data bit, input
+       dout:   OUT std_logic;  -- data bit, output
+       redge:  OUT std_logic;  -- rising  edge on din detected
+       fedge:  OUT std_logic); -- falling edge on din detected
 END sync_buffer;
 
 --
@@ -21,9 +21,6 @@ END sync_buffer;
 -- zur Entity sync_buffer implementiert werden.
 --
 ARCHITECTURE behavioral OF sync_buffer IS
-  constant CLOCK_DIVIDER_N: natural := 2**15; 							                          -- mod-N for clock divider
-  constant CLOCK_DIVIDER_N_BITS: integer := 15; 							                        -- mod-N for clock divider
-
   constant CNT_SIZE: natural := 2**5;                                                 -- sample size = 32
   constant CNT_BITS: integer := 5;
 
@@ -32,9 +29,6 @@ ARCHITECTURE behavioral OF sync_buffer IS
   signal dff2:  std_logic;                                                            -- dff2 q+1
   signal dff2_out:  std_logic;                                                        -- dff2 q
   signal dff3:  std_logic;                                                            -- dff2 q+1
-
-  signal clock_divider_counter: std_logic_vector (CLOCK_DIVIDER_N_BITS-1 downto 0) := (others => '0');   -- counter of clock divider
-  signal clock_divider_out: std_logic;                                                -- clock divider output (rising edge)
   
   type TState IS (S0, S1);                                                            -- states hysterese
   signal state: TState;
@@ -66,20 +60,6 @@ begin
      end if;
   end process;
   
-  -- Modulo-2**15-Zaehler als Prozess
-  process (rst, clk) begin
-    if rst=RSTDEF then
-      clock_divider_counter <= (others => '0');
-      clock_divider_out <= '0';
-    elsif rising_edge(clk) then
-      clock_divider_out <= '0';
-      if clock_divider_counter = CLOCK_DIVIDER_N - 1 then
-        clock_divider_out <= '1';
-      end if;
-      clock_divider_counter <= clock_divider_counter + 1;
-    end if;
-  end process;
-  
   -- hysterese
   process(rst, clk) is
   begin
@@ -87,7 +67,7 @@ begin
       state <= S0;
       cnt <= (others => '0');
     elsif rising_edge(clk) then
-      if clock_divider_out = '1' then
+      if en = '1' then
         case state is
           when S0 =>
             if (dff2_out = '0') and (cnt = 0) then
