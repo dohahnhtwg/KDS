@@ -23,9 +23,6 @@ ENTITY std_counter IS
 END std_counter;
 
 architecture behavioral of std_counter is
-  signal load_prev_clock: std_logic;
-  signal inc_prev_clock: std_logic;
-  signal dec_prev_clock: std_logic;
   signal counter: std_logic_vector(CNTLEN-1 DOWNTO 0);
 begin
 
@@ -43,19 +40,16 @@ begin
         counter <= (others => '0');
       -- enable
       elsif en = '1' then
-        if load_prev_clock = '0' and load = '1' then
+        if load = '1' then
           counter <= din;
-        elsif inc_prev_clock = '1' and inc = '0' then
+        elsif inc = '1' then
           counter <= counter - 1;
-        elsif dec_prev_clock = '1' and dec = '0' then
+        elsif dec = '1' then
           counter <= counter + 1;
         else
           counter <= counter;
         end if;
       end if;
-      load_prev_clock <= load;
-      inc_prev_clock <= inc;
-      dec_prev_clock <= dec;
     end if;
   end process;
 
