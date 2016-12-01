@@ -2,6 +2,7 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
+USE ieee.numeric_std.ALL;
 
 ENTITY sync_buffer IS
   GENERIC(RSTDEF:  std_logic := '1');
@@ -19,7 +20,7 @@ END sync_buffer;
 -- Im Rahmen der 2. Aufgabe soll hier die Architekturbeschreibung
 -- zur Entity sync_buffer implementiert werden.
 --
-architecture behavioral of sync_buffer is
+ARCHITECTURE behavioral OF sync_buffer IS
   constant CLOCK_DIVIDER_N: natural := 2**15; 							                          -- mod-N for clock divider
   constant CLOCK_DIVIDER_N_BITS: integer := 15; 							                        -- mod-N for clock divider
 
@@ -32,7 +33,7 @@ architecture behavioral of sync_buffer is
   signal dff2_out:  std_logic;                                                        -- dff2 q
   signal dff3:  std_logic;                                                            -- dff2 q+1
 
-  signal clock_divider_counter: std_logic_vector (CLOCK_DIVIDER_N_BITS-1 downto 0);   -- output of Modulo-4-Counter
+  signal clock_divider_counter: std_logic_vector (CLOCK_DIVIDER_N_BITS-1 downto 0) := (others => '0');   -- counter of clock divider
   signal clock_divider_out: std_logic;                                                -- clock divider output (rising edge)
   
   type TState IS (S0, S1);                                                            -- states hysterese
@@ -101,7 +102,7 @@ begin
               state <= S0;
               cnt <= cnt + 1;
               hyst_out <= '0';
-            elsif (dff2_out = '1') and (cnt < CNT_SIZE-1) then
+            elsif (dff2_out = '1') and (cnt = CNT_SIZE-1) then
               state <= S1;
               cnt <= cnt;
               hyst_out <= '0';
