@@ -43,9 +43,19 @@ begin
         if load = '1' then
           counter <= din;
         elsif inc = '1' then
-          counter <= counter - 1;
-        elsif dec = '1' then
+          if counter = (counter'range => '1') then
+            cout <= '1';
+          else
+            cout <= '0';
+          end if;
           counter <= counter + 1;
+        elsif dec = '1' then
+          if counter = (counter'range => '0') then
+            cout <= '1';
+          else
+            cout <= '0';
+          end if;
+          counter <= counter - 1;
         else
           counter <= counter;
         end if;
