@@ -24,41 +24,39 @@ ARCHITECTURE behavioral OF sync_buffer IS
   constant CNT_SIZE: natural := 2**5;                                                 -- sample size = 32
   constant CNT_BITS: integer := 5;
 
-  signal dff1:  std_logic;                                                            -- dff1 q+1
-  signal dff1_out:  std_logic;                                                        -- dff1 q
-  signal dff2:  std_logic;                                                            -- dff2 q+1
-  signal dff2_out:  std_logic;                                                        -- dff2 q
-  signal dff3:  std_logic;                                                            -- dff2 q+1
+  COMPONENT flip_flop
+    GENERIC(RSTDEF:  std_logic);
+    PORT(rst:    IN  std_logic;  -- reset, RSTDEF active
+         clk:    IN  std_logic;  -- clock, rising edge
+         din:    IN  std_logic;  -- data bit, input
+         dout:   OUT std_logic); -- data bit, output
+  END COMPONENT;
   
-  type TState IS (S0, S1);                                                            -- states hysterese
+  signal ff1_out:  std_logic;                                                        -- dff1 q
+  signal ff2_out:  std_logic;                                                        -- dff2 q
+  signal ff3_out:  std_logic;                                                        -- dff2 q+1
+  
+  type TState IS (S0, S1);                                                           -- states hysterese
   signal state: TState;
-  signal cnt: std_logic_vector (CNT_BITS-1 downto 0);                                 -- hysterese counter
+  signal cnt: std_logic_vector (CNT_BITS-1 downto 0);                                -- hysterese counter
   signal hyst_out: std_logic;                                                         -- hysterese out
 begin
 
   -- dff1 Process
-  dff1_out <= dff1;
-
-  process (rst, clk) is
-  begin
-     if rst=RSTDEF then
-        dff1 <= '0';
-     elsif rising_edge(clk) then
-        dff1 <= din;
-     end if;
-  end process;
+  ff1: flip_flop
+  GENERIC MAP(RSTDEF => RSTDEF)
+  PORT MAP(rst => rst,
+           clk => clk,
+           din => din,
+           dout => ff1_out);
    
   -- dff2 Process
-  dff2_out <= dff2;
-
-  process (rst, clk) is
-  begin
-     if rst=RSTDEF then
-        dff2 <= '0';
-     elsif rising_edge(clk) then
-        dff2 <= dff1;
-     end if;
-  end process;
+  ff2: flip_flop
+  GENERIC MAP(RSTDEF => RSTDEF)
+  PORT MAP(rst => rst,
+           clk => clk,
+           din => ff1_out,
+           dout => ff2_out);
   
   -- hysterese
   process(rst, clk) is
@@ -71,37 +69,37 @@ begin
       if en = '1' then
         case state is
           when S0 =>
-            if (dff2_out = '0') and (cnt = 0) then
+            if (ff2_out = '0') and (cnt = 0) then
               state <= S0;
               cnt <= cnt;
               hyst_out <= '0';
-            elsif (dff2_out = '0') and (cnt > 0) then
+            elsif (ff2_out = '0') and (cnt > 0) then
               state <= S0;
               cnt <= cnt - 1;
               hyst_out <= '0';
-            elsif (dff2_out = '1') and (cnt < CNT_SIZE-1) then
+            elsif (ff2_out = '1') and (cnt < CNT_SIZE-1) then
               state <= S0;
               cnt <= cnt + 1;
               hyst_out <= '0';
-            elsif (dff2_out = '1') and (cnt = CNT_SIZE-1) then
+            elsif (ff2_out = '1') and (cnt = CNT_SIZE-1) then
               state <= S1;
               cnt <= cnt;
               hyst_out <= '0';
             end if;
           when S1 =>
-            if (dff2_out = '1') and (cnt = CNT_SIZE-1) then
+            if (ff2_out = '1') and (cnt = CNT_SIZE-1) then
               state <= S1;
               cnt <= cnt;
               hyst_out <= '1';
-            elsif (dff2_out = '1') and (cnt < CNT_SIZE-1) then
+            elsif (ff2_out = '1') and (cnt < CNT_SIZE-1) then
               state <= S1;
               cnt <= cnt + 1;
               hyst_out <= '1';
-            elsif (dff2_out = '0') and (cnt > 0) then
+            elsif (ff2_out = '0') and (cnt > 0) then
               state <= S1;
               cnt <= cnt - 1;
               hyst_out <= '1';
-            elsif (dff2_out = '0') and (cnt = 0) then
+            elsif (ff2_out = '0') and (cnt = 0) then
               state <= S0;
               cnt <= cnt;
               hyst_out <= '1';
@@ -111,19 +109,17 @@ begin
     end if;
   end process;
    
-  -- dff3 Process
-  process (rst, clk) is
-  begin
-     if rst=RSTDEF then
-        dff3 <= '0';
-     elsif rising_edge(clk) then
-        dff3 <= hyst_out;
-     end if;
-  end process;
+  -- dff3 Process--
+  ff3: flip_flop
+  GENERIC MAP(RSTDEF => RSTDEF)
+  PORT MAP(rst => rst,
+           clk => clk,
+           din => hyst_out,
+           dout => ff3_out);
   
   -- output logic
-  dout <= dff3;
-  fedge <= dff3 and not hyst_out;
-  redge <= not dff3 and hyst_out;
+  dout <= ff3_out;
+  fedge <= ff3_out and not hyst_out;
+  redge <= not ff3_out and hyst_out;
   
 end behavioral;
