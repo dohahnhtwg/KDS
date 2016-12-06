@@ -33,8 +33,8 @@ ARCHITECTURE behavioral OF sync_module IS
          fedge:  OUT std_logic); -- falling edge on din detected
   END COMPONENT;
   
-  constant CLOCK_DIVIDER_N: natural := 2**15; 							                          -- mod-N for clock divider
-  constant CLOCK_DIVIDER_N_BITS: integer := 15; 							                        -- mod-N for clock divider
+  constant CLOCK_DIVIDER_N: natural := 2**8; 							                                 -- mod-N for clock divider
+  constant CLOCK_DIVIDER_N_BITS: integer := 8; 							                             -- mod-N for clock divider
   
   signal clock_divider_counter: std_logic_vector (CLOCK_DIVIDER_N_BITS-1 downto 0) := (others => '0');   -- counter of clock divider
   signal clock_divider_out: std_logic;                                                                   -- clock divider output (rising edge)
@@ -62,6 +62,8 @@ BEGIN
              en    => clock_divider_out,
              swrst => swrst,
              din   => BTN0,
+			 dout  => open,
+			 redge => open,
              fedge => load);
              
   -- sync_buffer dec
@@ -72,7 +74,9 @@ BEGIN
              en    => clock_divider_out,
              swrst => swrst,
              din   => BTN1,
-             redge => dec);
+			 dout  => open,
+             redge => dec,
+             fedge => open);
   
   -- sync_buffer inc
   sb3: sync_buffer
@@ -82,6 +86,7 @@ BEGIN
              en    => clock_divider_out,
              swrst => swrst,
              din   => BTN2,
-             redge => inc);
-
+			 dout  => open,
+             redge => inc,
+             fedge => open);
 END behavioral;

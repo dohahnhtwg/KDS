@@ -66,6 +66,7 @@ begin
     if rst=RSTDEF then
       state <= S0;
       cnt <= (others => '0');
+      hyst_out <= '0';
     elsif rising_edge(clk) then
       if en = '1' then
         case state is
@@ -122,7 +123,7 @@ begin
   
   -- output logic
   dout <= dff3;
-  redge <= dff3 and not hyst_out;
-  fedge <= not dff3 and hyst_out;
+  fedge <= dff3 and not hyst_out;
+  redge <= not dff3 and hyst_out;
   
 end behavioral;
