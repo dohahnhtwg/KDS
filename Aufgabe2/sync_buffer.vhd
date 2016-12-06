@@ -69,40 +69,48 @@ begin
       if en = '1' then
         case state is
           when S0 =>
-            if (ff2_out = '0') and (cnt = 0) then
-              state <= S0;
-              cnt <= cnt;
-              hyst_out <= '0';
-            elsif (ff2_out = '0') and (cnt > 0) then
-              state <= S0;
-              cnt <= cnt - 1;
-              hyst_out <= '0';
-            elsif (ff2_out = '1') and (cnt < CNT_SIZE-1) then
-              state <= S0;
-              cnt <= cnt + 1;
-              hyst_out <= '0';
-            elsif (ff2_out = '1') and (cnt = CNT_SIZE-1) then
-              state <= S1;
-              cnt <= cnt;
-              hyst_out <= '0';
+            if ff2_out = '0' then
+              if cnt = 0 then
+                state <= S0;
+                cnt <= cnt;
+                hyst_out <= '0';
+              else
+                state <= S0;
+                cnt <= cnt - 1;
+                hyst_out <= '0';
+              end if;
+            else
+              if cnt < CNT_SIZE-1 then
+                state <= S0;
+                cnt <= cnt + 1;
+                hyst_out <= '0';
+              else
+                state <= S1;
+                cnt <= cnt;
+                hyst_out <= '0';
+              end if;
             end if;
           when S1 =>
-            if (ff2_out = '1') and (cnt = CNT_SIZE-1) then
-              state <= S1;
-              cnt <= cnt;
-              hyst_out <= '1';
-            elsif (ff2_out = '1') and (cnt < CNT_SIZE-1) then
-              state <= S1;
-              cnt <= cnt + 1;
-              hyst_out <= '1';
-            elsif (ff2_out = '0') and (cnt > 0) then
-              state <= S1;
-              cnt <= cnt - 1;
-              hyst_out <= '1';
-            elsif (ff2_out = '0') and (cnt = 0) then
-              state <= S0;
-              cnt <= cnt;
-              hyst_out <= '1';
+            if ff2_out = '1' then
+              if cnt = CNT_SIZE-1 then
+                state <= S1;
+                cnt <= cnt;
+                hyst_out <= '1';
+              else
+                state <= S1;
+                cnt <= cnt + 1;
+                hyst_out <= '1';
+              end if;
+            else
+              if cnt > 0 then
+                state <= S1;
+                cnt <= cnt - 1;
+                hyst_out <= '1';
+              else
+                state <= S0;
+                cnt <= cnt;
+                hyst_out <= '1';
+              end if;
             end if;
         end case;
       end if;
