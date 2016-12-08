@@ -34,14 +34,17 @@ begin
     -- asynchrones Reset
     if rst = RSTDEF then
       counter <= (others => '0');
+      cout <= '0';
     -- synchrones  Reset
     elsif rising_edge(clk) then
       if swrst = '1' then
         counter <= (others => '0');
+        cout <= '0';
       -- enable
       elsif en = '1' then
         if load = '1' then
           counter <= din;
+          cout <= '0';
         elsif inc = '1' then
           if counter = (counter'range => '1') then
             cout <= '1';

@@ -62,9 +62,9 @@ BEGIN
              en    => clock_divider_out,
              swrst => swrst,
              din   => BTN0,
-			       dout  => open,
-			       redge => open,
-             fedge => load);
+			    dout  => open,
+			    redge => load,
+             fedge => open);
              
   -- sync_buffer dec
   sb2: sync_buffer
@@ -74,9 +74,9 @@ BEGIN
              en    => clock_divider_out,
              swrst => swrst,
              din   => BTN1,
-			       dout  => open,
-             redge => dec,
-             fedge => open);
+			    dout  => open,
+             redge => open,
+             fedge => dec);
   
   -- sync_buffer inc
   sb3: sync_buffer
@@ -86,7 +86,7 @@ BEGIN
              en    => clock_divider_out,
              swrst => swrst,
              din   => BTN2,
-			       dout  => open,
-             redge => inc,
-             fedge => open);
+			    dout  => open,
+             redge => open,
+             fedge => inc);
 END behavioral;
