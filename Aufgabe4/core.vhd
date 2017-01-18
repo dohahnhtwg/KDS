@@ -46,11 +46,12 @@ ARCHITECTURE structure OF core IS
   
   -- U4
   COMPONENT adder_acc IS
-    PORT (p:   OUT std_logic_vector(43 DOWNTO 0);
-          a:   IN  std_logic_vector(35 DOWNTO 0);
-          en:  IN  std_logic;
-          rst: IN  std_logic;
-          clk: IN  std_logic);
+    PORT (p:    OUT std_logic_vector(43 DOWNTO 0);
+          addr: OUT std_logic_vector(9 downto 0);
+          a:    IN  std_logic_vector(35 DOWNTO 0);
+          en:   IN  std_logic;
+          rst:  IN  std_logic;
+          clk:  IN  std_logic);
   END COMPONENT;
   
   -- U5
@@ -68,15 +69,16 @@ ARCHITECTURE structure OF core IS
   END COMPONENT;
 
   -- Control Unit
-  TYPE TState IS (S0, S1, S2, S3, S4, S5, S6, S7, S8);            -- states control unit
+  TYPE TState IS (S0, S1, S2, S3, S4, S5, S6, S7, S8, S9);        -- states control unit
   SIGNAL state: TState;
    
   SIGNAL j: unsigned( 12 DOWNTO 0);                               -- Number of jobs
   CONSTANT NUMBER_JOBS: unsigned := to_unsigned(4096, j'length);  -- 16x16x16
   SIGNAL en1: std_logic;                                          -- Enable AddressGenerator
-  SIGNAl en2: std_logic;                                          -- Rom-Block
+  SIGNAl en2: std_logic;                                          -- ROM-Block
   SIGNAL en3: std_logic;                                          -- Enable MULT18X18S
   SIGNAL en4: std_logic;                                          -- Enable 44Bit-Adder
+  SIGNAL en5: std_logic;                                          -- RAM-Block
   
   -- U1 - Addressgenerator
   CONSTANT N: natural := 16;                                      -- matrix size NxN
@@ -84,7 +86,6 @@ ARCHITECTURE structure OF core IS
   CONSTANT START_VEC_B: natural := 256;                           -- First address of vector B
   SIGNAL mem_counter_vecA: unsigned(MEM_COUNTER_BITS-1 downto 0); -- Actual adress of vector A
   SIGNAL mem_counter_vecB: unsigned(MEM_COUNTER_BITS-1 downto 0); -- Actual adress of vector B
-  SIGNAL mem_counter_vecC: unsigned(MEM_COUNTER_BITS-1 downto 0); -- Actual adress of vector C
   
   -- U2 - ROM-Block
   SIGNAL vecA: std_logic_vector(15 DOWNTO 0);                     -- Rom output of vector A
@@ -97,6 +98,7 @@ ARCHITECTURE structure OF core IS
   
   -- U4 - Accumulator
   SIGNAL u4_res: std_logic_vector(43 DOWNTO 0);                   -- Result of Accumulator
+  SIGNAL mem_res: std_logic_vector(MEM_COUNTER_BITS-1 downto 0);  -- Actual adress of result
   
   -- U5 - RAM-Block
   SIGNAL mem_counter_vecRes: unsigned(MEM_COUNTER_BITS-1 downto 0); -- Actual adress of vector Result
@@ -119,6 +121,7 @@ BEGIN
       en2 <= '0';
       en3 <= '0';
       en4 <= '0';
+      en5 <= '0';
       rdy <= '0';
       intern_rst <= '1';
     ELSIF rising_edge(clk) THEN
@@ -131,106 +134,98 @@ BEGIN
             en2 <= '0';
             en3 <= '0';
             en4 <= '0';
+            en5 <= '0';
             rdy <= '0';
             intern_rst <= '1';
           END IF;
         WHEN S1 =>
-          IF j = 0 THEN
-            state <= S7;
-            en1 <= '0';
-            en2 <= '0';
-            en3 <= '0';
-            en4 <= '0';
-            intern_rst <= '0';
-          ELSE
             j <= j - 1;
             state <= S2;
             en1 <= '1';
             en2 <= '0';
             en3 <= '0';
             en4 <= '0';
+            en5 <= '0';
             intern_rst <= '0';
-          END IF;
         WHEN S2 =>
-          IF j = 0 THEN
-            state <= S8;
-            en1 <= '0';
-            en2 <= '1';
-            en3 <= '0';
-            en4 <= '0';
-            intern_rst <= '0';
-          ELSE
             j <= j - 1;
             state <= S3;
             en1 <= '1';
             en2 <= '1';
             en3 <= '0';
             en4 <= '0';
+            en5 <= '0';
             intern_rst <= '0';
-          END IF;
         WHEN S3 =>
-          IF j = 0 THEN
-            state <= S5;
-            en1 <= '0';
-            en2 <= '1';
-            en3 <= '1';
-            en4 <= '0';
-            intern_rst <= '0';
-          ELSE
             j <= j - 1;
             state <= S4;
             en1 <= '1';
             en2 <= '1';
             en3 <= '1';
             en4 <= '0';
+            en5 <= '0';
             intern_rst <= '0';
-          END IF;
         WHEN S4 =>
-          IF j = 0 THEN
-            state <= S5;
-            en1 <= '0';
-            en2 <= '1';
-            en3 <= '1';
-            en4 <= '1';
-            intern_rst <= '0';
-          ELSE
             j <= j - 1;
-            state <= S4;
+            state <= S5;
             en1 <= '1';
             en2 <= '1';
             en3 <= '1';
             en4 <= '1';
+            en5 <= '0';
+            intern_rst <= '0';
+        WHEN S5 =>
+          IF j=0 THEN
+            state <= S6;
+            en1 <= '0';
+            en2 <= '1';
+            en3 <= '1';
+            en4 <= '1';
+            en5 <= '1';
+            intern_rst <= '0';
+          ELSE
+            j <= j - 1;
+            state <= S5;
+            en1 <= '1';
+            en2 <= '1';
+            en3 <= '1';
+            en4 <= '1';
+            en5 <= '1';
             intern_rst <= '0';
           END IF;
-        WHEN S5 =>
-          state <= S6;
-          en1 <= '0';
-          en2 <= '0';
-          en3 <= '1';
-          en4 <= '1';
-          intern_rst <= '0';
         WHEN S6 =>
           state <= S7;
           en1 <= '0';
           en2 <= '0';
-          en3 <= '0';
-          en3 <= '0';
+          en3 <= '1';
+          en3 <= '1';
           en4 <= '1';
+          en5 <= '1';
           intern_rst <= '0';
         WHEN S7 =>
+          state <= S8;
+          en1 <= '0';
+          en2 <= '0';
+          en3 <= '0';
+          en4 <= '1';
+          en5 <= '1';
+          intern_rst <= '0';
+        WHEN S8 =>
+          state <= S9;
+          en1 <= '0';
+          en2 <= '0';
+          en3 <= '0';
+          en4 <= '0';
+          en5 <= '1';
+          intern_rst <= '0';
+        WHEN S9 =>
           state <= S0;
           en1 <= '0';
           en2 <= '0';
           en3 <= '0';
           en4 <= '0';
+          en5 <= '0';
           rdy <= '1';
-          intern_rst <= '0';
-        WHEN S8 =>
-          state <= S6;
-          en1 <= '0';
-          en2 <= '0';
-          en3 <= '1';
-          en4 <= '0';
           intern_rst <= '0';
       END CASE;
     END IF;
@@ -245,7 +240,7 @@ BEGIN
     IF global_rst=RSTDEF THEN
       mem_counter_vecA <= (OTHERS => '0');
       mem_counter_vecB <= (OTHERS => '0');
-      mem_counter_vecC <= (OTHERS => '0');
+      --mem_counter_vecC <= (OTHERS => '0');
       row := 0;
       column := 0;
       k := 0;
@@ -261,7 +256,7 @@ BEGIN
             IF k=N THEN
               column := column + 1;
               k := 0;
-              mem_counter_vecC <= mem_counter_vecC + 1;
+              --mem_counter_vecC <= mem_counter_vecC + 1;
             END IF;
           END IF;
           IF column=N THEN
@@ -297,25 +292,26 @@ BEGIN
            
   -- Unit4 - Adder
   u4: adder_acc
-  PORT MAP(p   => u4_res,
-           a   => u3_res,
-           en  => en4,
-           rst => global_rst,
-           clk => clk);
+  PORT MAP(p    => u4_res,
+           addr => mem_res,
+           a    => u3_res,
+           en   => en4,
+           rst  => global_rst,
+           clk  => clk);
            
   -- Unit5 - RamBlock
   mem_counter_vecRes <= resize(unsigned(sw), mem_counter_vecRes'length);
   dina <= std_logic_vector(resize(unsigned(u4_res), dina'length));
   u5: ram_block
-  PORT MAP(addra => std_logic_vector(mem_counter_vecC),
+  PORT MAP(addra => mem_res,
            addrb => std_logic_vector(mem_counter_vecRes),
            clka  => clk,
            clkb  => clk,
            dina  => dina,
            douta => OPEN,
            doutb => dout,
-           ena   => en4,
-           enb   => en4,
-           wea   => en4);
+           ena   => en5,
+           enb   => '1',
+           wea   => en5);
 
 END structure;

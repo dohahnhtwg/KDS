@@ -115,6 +115,7 @@ BEGIN
       END LOOP;
 
       clock(1);
+      REPORT "test done..." SEVERITY note;
       hlt <= '1';
       WAIT;
    END PROCESS;
