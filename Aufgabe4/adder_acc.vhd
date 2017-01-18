@@ -14,8 +14,8 @@ END adder_acc;
 
 ARCHITECTURE structure OF adder_acc IS
   
-  CONSTANT ELE: std_logic_vector(3 DOWNTO 0) := "1111"; -- matrix size
-  SIGNAL cnt: std_logic_vector(3 DOWNTO 0);             -- intern counter
+  CONSTANT ELE: std_logic_vector(4 DOWNTO 0) := "10000"; -- matrix size
+  SIGNAL cnt: std_logic_vector(4 DOWNTO 0);             -- intern counter
   SIGNAL tmp: std_logic_vector(43 DOWNTO 0);
   
 BEGIN
@@ -23,25 +23,16 @@ BEGIN
   PROCESS(rst, clk) IS
   BEGIN
     IF rst = RSTDEF THEN
+      tmp <= (OTHERS => '0');
       cnt <= (OTHERS => '0');
     ELSIF rising_edge(clk) THEN
       IF en = '1' THEN
-        cnt <= cnt + 1;
-      END IF;
-    END IF;
-  END PROCESS;
-
-  PROCESS(rst, clk) IS
-  BEGIN
-    IF rst = RSTDEF THEN
-      tmp <= (OTHERS => '0');
-    ELSIF rising_edge(clk) THEN
-      IF en = '1' THEN
         IF cnt=ELE THEN
-          --tmp <= std_logic_vector(resize(unsigned(a), tmp'length));
-          tmp <= tmp + a;
+          tmp <= std_logic_vector(resize(unsigned(a), tmp'length));
+          cnt <= "00001";
         ELSE
           tmp <= tmp + a;
+          cnt <= cnt + 1;
         END IF;
       END IF;
     END IF;
