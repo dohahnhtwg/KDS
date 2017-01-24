@@ -73,16 +73,12 @@ ARCHITECTURE structure OF core IS
    
   SIGNAL j: unsigned( 12 DOWNTO 0);                               -- Number of jobs
   CONSTANT NUMBER_JOBS: unsigned := to_unsigned(4096, j'length);  -- 16x16x16
-  SIGNAL en1: std_logic;                                          -- Enable AddressGenerator
-  SIGNAl en2: std_logic;                                          -- ROM-Block
-  SIGNAL en3: std_logic;                                          -- Enable MULT18X18S
-  SIGNAL en4: std_logic;                                          -- Enable 44Bit-Adder
-  SIGNAL en5: std_logic;                                          -- RAM-Block
+  SIGNAL ens: std_logic_vector(4 DOWNTO 0);
   
   -- U1 - Addressgenerator
-  CONSTANT N: natural := 16;                                      -- matrix size NxN
+  CONSTANT N: unsigned(4 downto 0) := "10000";                    -- matrix size NxN
   CONSTANT MEM_COUNTER_BITS: natural := 10;                       -- Number of bits for MEM_COUNTER_N
-  CONSTANT START_VEC_B: natural := 256;                           -- First address of vector B
+  CONSTANT START_VEC_B: unsigned(8 downto 0) := "100000000";      -- First address of vector B
   SIGNAL mem_counter_vecA: unsigned(MEM_COUNTER_BITS-1 downto 0); -- Actual adress of vector A
   SIGNAL mem_counter_vecB: unsigned(MEM_COUNTER_BITS-1 downto 0); -- Actual adress of vector B
   
@@ -116,11 +112,7 @@ BEGIN
     IF rst=RSTDEF THEN
       state <= S0;
       j <= to_unsigned(0, j'length);
-      en1 <= '0';
-      en2 <= '0';
-      en3 <= '0';
-      en4 <= '0';
-      en5 <= '0';
+      ens <= "00000";
       rdy <= '0';
       intern_rst <= '1';
     ELSIF rising_edge(clk) THEN
@@ -129,102 +121,57 @@ BEGIN
           IF strt = '1' THEN
             j <= NUMBER_JOBS;
             state <= S1;
-            en1 <= '0';
-            en2 <= '0';
-            en3 <= '0';
-            en4 <= '0';
-            en5 <= '0';
+            ens <= "00000";
             rdy <= '0';
             intern_rst <= '1';
           END IF;
         WHEN S1 =>
             j <= j - 1;
             state <= S2;
-            en1 <= '1';
-            en2 <= '0';
-            en3 <= '0';
-            en4 <= '0';
-            en5 <= '0';
+            ens <= "00001";
             intern_rst <= '0';
         WHEN S2 =>
             j <= j - 1;
             state <= S3;
-            en1 <= '1';
-            en2 <= '1';
-            en3 <= '0';
-            en4 <= '0';
-            en5 <= '0';
+            ens <= "00011";
             intern_rst <= '0';
         WHEN S3 =>
             j <= j - 1;
             state <= S4;
-            en1 <= '1';
-            en2 <= '1';
-            en3 <= '1';
-            en4 <= '0';
-            en5 <= '0';
+            ens <= "00111";
             intern_rst <= '0';
         WHEN S4 =>
             j <= j - 1;
             state <= S5;
-            en1 <= '1';
-            en2 <= '1';
-            en3 <= '1';
-            en4 <= '1';
-            en5 <= '0';
+            ens <= "01111";
             intern_rst <= '0';
         WHEN S5 =>
           IF j=0 THEN
             state <= S6;
-            en1 <= '0';
-            en2 <= '1';
-            en3 <= '1';
-            en4 <= '1';
-            en5 <= '1';
+            ens <= "11110";
             intern_rst <= '0';
           ELSE
             j <= j - 1;
             state <= S5;
-            en1 <= '1';
-            en2 <= '1';
-            en3 <= '1';
-            en4 <= '1';
-            en5 <= '1';
+            ens <= "11111";
             intern_rst <= '0';
           END IF;
         WHEN S6 =>
           state <= S7;
-          en1 <= '0';
-          en2 <= '0';
-          en3 <= '1';
-          en3 <= '1';
-          en4 <= '1';
-          en5 <= '1';
+          ens <= "11100";
           intern_rst <= '0';
         WHEN S7 =>
           state <= S8;
-          en1 <= '0';
-          en2 <= '0';
-          en3 <= '0';
-          en4 <= '1';
-          en5 <= '1';
+          ens <= "11000";
           intern_rst <= '0';
         WHEN S8 =>
           state <= S9;
-          en1 <= '0';
-          en2 <= '0';
-          en3 <= '0';
-          en4 <= '0';
-          en5 <= '1';
+          ens <= "10000";
           intern_rst <= '0';
         WHEN S9 =>
           state <= S0;
-          en1 <= '0';
-          en2 <= '0';
-          en3 <= '0';
-          en4 <= '0';
-          en5 <= '0';
           rdy <= '1';
+          ens <= "00000";
           intern_rst <= '0';
       END CASE;
     END IF;
@@ -243,7 +190,7 @@ BEGIN
       column := (OTHERS => '0');
       k := (OTHERS => '0');
     ELSIF rising_edge(clk) THEN
-      IF en1='1' THEN
+      IF ens(0)='1' THEN
         IF row<N THEN
           IF column<N THEN
             IF k<N THEN
@@ -273,8 +220,8 @@ BEGIN
            clkb  => clk,
            douta => vecA,
            doutb => vecB,
-           ena   => en2,
-           enb   => en2);
+           ena   => ens(1),
+           enb   => ens(1));
            
   -- Unit3 - Multiplication
   vecA_se <= std_logic_vector(resize(signed(vecA), 18));
@@ -284,7 +231,7 @@ BEGIN
            a  => vecA_se,
            b  => vecB_se,
            c  => clk,
-           ce => en3,
+           ce => ens(2),
            r  => global_rst);
            
   -- Unit4 - Adder
@@ -292,7 +239,7 @@ BEGIN
   PORT MAP(p    => u4_res,
            addr => mem_res,
            a    => u3_res,
-           en   => en4,
+           en   => ens(3),
            rst  => global_rst,
            clk  => clk);
            
@@ -307,8 +254,8 @@ BEGIN
            dina  => dina,
            douta => OPEN,
            doutb => dout,
-           ena   => en5,
+           ena   => ens(4),
            enb   => '1',
-           wea   => en5);
+           wea   => ens(4));
 
 END structure;
