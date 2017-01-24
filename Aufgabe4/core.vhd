@@ -1,4 +1,3 @@
-
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.all;
@@ -233,35 +232,33 @@ BEGIN
 
   -- Unit1 - Addressgenerator
   PROCESS (global_rst, clk) 
-    variable row: natural;
-    variable column: natural;
-    variable k: natural;
+    variable row: unsigned(4 downto 0);
+    variable column: unsigned(4 downto 0);
+    variable k: unsigned(4 downto 0);
   BEGIN
     IF global_rst=RSTDEF THEN
       mem_counter_vecA <= (OTHERS => '0');
       mem_counter_vecB <= (OTHERS => '0');
-      --mem_counter_vecC <= (OTHERS => '0');
-      row := 0;
-      column := 0;
-      k := 0;
+      row := (OTHERS => '0');
+      column := (OTHERS => '0');
+      k := (OTHERS => '0');
     ELSIF rising_edge(clk) THEN
       IF en1='1' THEN
         IF row<N THEN
           IF column<N THEN
             IF k<N THEN
-              mem_counter_vecA <= to_unsigned(row*N + k, mem_counter_vecA'length);
-              mem_counter_vecB <= to_unsigned(column + k*N + START_VEC_B, mem_counter_vecB'length);
+              mem_counter_vecA <= resize(row*N + k, mem_counter_vecA'length);
+              mem_counter_vecB <= resize(column + k*N + START_VEC_B, mem_counter_vecB'length);
               k := k + 1;
             END IF;
             IF k=N THEN
               column := column + 1;
-              k := 0;
-              --mem_counter_vecC <= mem_counter_vecC + 1;
+              k := (OTHERS => '0');
             END IF;
           END IF;
           IF column=N THEN
             row := row + 1;
-            column := 0;
+            column := (OTHERS => '0');
           END IF;
         END IF;
       END IF;
