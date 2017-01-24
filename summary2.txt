@@ -1,0 +1,899 @@
+Release 14.1 - xst P.15xf (nt64)
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
+--> Parameter TMPDIR set to xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.09 secs
+ 
+--> Parameter xsthdpdir set to xst
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.09 secs
+ 
+--> Reading design: aufgabe4.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) Design Hierarchy Analysis
+  4) HDL Analysis
+  5) HDL Synthesis
+     5.1) HDL Synthesis Report
+  6) Advanced HDL Synthesis
+     6.1) Advanced HDL Synthesis Report
+  7) Low Level Synthesis
+  8) Partition Report
+  9) Final Report
+	9.1) Device utilization summary
+	9.2) Partition Resource Summary
+	9.3) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "aufgabe4.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "aufgabe4"
+Output Format                      : NGC
+Target Device                      : xc3s200-5-ft256
+
+---- Source Options
+Top Module Name                    : aufgabe4
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+Safe Implementation                : No
+FSM Style                          : LUT
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Mux Style                          : Auto
+Decoder Extraction                 : YES
+Priority Encoder Extraction        : Yes
+Shift Register Extraction          : YES
+Logical Shifter Extraction         : YES
+XOR Collapsing                     : YES
+ROM Style                          : Auto
+Mux Extraction                     : Yes
+Resource Sharing                   : YES
+Asynchronous To Synchronous        : NO
+Multiplier Style                   : Auto
+Automatic Register Balancing       : No
+
+---- Target Options
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 100000
+Add Generic Clock Buffer(BUFG)     : 8
+Register Duplication               : YES
+Slice Packing                      : YES
+Optimize Instantiated Primitives   : NO
+Use Clock Enable                   : Yes
+Use Synchronous Set                : Yes
+Use Synchronous Reset              : Yes
+Pack IO Registers into IOBs        : Auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Keep Hierarchy                     : No
+Netlist Hierarchy                  : As_Optimized
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Read Cores                         : YES
+Write Timing Constraints           : NO
+Cross Clock Analysis               : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : Maintain
+Slice Utilization Ratio            : 100
+BRAM Utilization Ratio             : 100
+Verilog 2001                       : YES
+Auto BRAM Packing                  : NO
+Slice Utilization Ratio Delta      : 5
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling vhdl file "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe2/flip_flop.vhd" in Library work.
+Architecture behavioral of Entity flip_flop is up to date.
+Compiling vhdl file "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe4/rom_block.vhd" in Library work.
+Architecture low_level_definition of Entity rom_block is up to date.
+Compiling vhdl file "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe4/adder_acc.vhd" in Library work.
+Architecture structure of Entity adder_acc is up to date.
+Compiling vhdl file "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe4/ram_block.vhd" in Library work.
+Architecture low_level_definition of Entity ram_block is up to date.
+Compiling vhdl file "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe2/sync_buffer.vhd" in Library work.
+Architecture behavioral of Entity sync_buffer is up to date.
+Compiling vhdl file "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe2/sync_module.vhd" in Library work.
+Architecture behavioral of Entity sync_module is up to date.
+Compiling vhdl file "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe4/core.vhd" in Library work.
+Architecture structure of Entity core is up to date.
+Compiling vhdl file "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe1/hex4x7seg.vhd" in Library work.
+Architecture arch of Entity hex4x7seg is up to date.
+Compiling vhdl file "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe4/aufgabe4.vhd" in Library work.
+Architecture structure of Entity aufgabe4 is up to date.
+
+=========================================================================
+*                     Design Hierarchy Analysis                         *
+=========================================================================
+Analyzing hierarchy for entity <aufgabe4> in library <work> (architecture <structure>).
+
+Analyzing hierarchy for entity <sync_module> in library <work> (architecture <behavioral>) with generics.
+	RSTDEF = '1'
+
+Analyzing hierarchy for entity <core> in library <work> (architecture <structure>) with generics.
+	RSTDEF = '1'
+
+Analyzing hierarchy for entity <hex4x7seg> in library <work> (architecture <arch>) with generics.
+	RSTDEF = '1'
+
+Analyzing hierarchy for entity <sync_buffer> in library <work> (architecture <behavioral>) with generics.
+	RSTDEF = '1'
+
+Analyzing hierarchy for entity <rom_block> in library <work> (architecture <low_level_definition>).
+
+Analyzing hierarchy for entity <adder_acc> in library <work> (architecture <structure>) with generics.
+	RSTDEF = '1'
+
+Analyzing hierarchy for entity <ram_block> in library <work> (architecture <low_level_definition>).
+
+Analyzing hierarchy for entity <flip_flop> in library <work> (architecture <behavioral>) with generics.
+	RSTDEF = '1'
+
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing Entity <aufgabe4> in library <work> (Architecture <structure>).
+WARNING:Xst:753 - "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe4/aufgabe4.vhd" line 63: Unconnected output port 'dec' of component 'sync_module'.
+WARNING:Xst:753 - "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe4/aufgabe4.vhd" line 63: Unconnected output port 'inc' of component 'sync_module'.
+Entity <aufgabe4> analyzed. Unit <aufgabe4> generated.
+
+Analyzing generic Entity <sync_module> in library <work> (Architecture <behavioral>).
+	RSTDEF = '1'
+WARNING:Xst:753 - "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe2/sync_module.vhd" line 58: Unconnected output port 'dout' of component 'sync_buffer'.
+WARNING:Xst:753 - "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe2/sync_module.vhd" line 58: Unconnected output port 'fedge' of component 'sync_buffer'.
+WARNING:Xst:753 - "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe2/sync_module.vhd" line 70: Unconnected output port 'dout' of component 'sync_buffer'.
+WARNING:Xst:753 - "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe2/sync_module.vhd" line 70: Unconnected output port 'redge' of component 'sync_buffer'.
+WARNING:Xst:753 - "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe2/sync_module.vhd" line 82: Unconnected output port 'dout' of component 'sync_buffer'.
+WARNING:Xst:753 - "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe2/sync_module.vhd" line 82: Unconnected output port 'redge' of component 'sync_buffer'.
+Entity <sync_module> analyzed. Unit <sync_module> generated.
+
+Analyzing generic Entity <sync_buffer> in library <work> (Architecture <behavioral>).
+	RSTDEF = '1'
+Entity <sync_buffer> analyzed. Unit <sync_buffer> generated.
+
+Analyzing generic Entity <flip_flop> in library <work> (Architecture <behavioral>).
+	RSTDEF = '1'
+Entity <flip_flop> analyzed. Unit <flip_flop> generated.
+
+Analyzing generic Entity <core> in library <work> (Architecture <structure>).
+	RSTDEF = '1'
+WARNING:Xst:2211 - "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe4/core.vhd" line 229: Instantiating black box module <MULT18X18S>.
+WARNING:Xst:753 - "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe4/core.vhd" line 249: Unconnected output port 'douta' of component 'ram_block'.
+Entity <core> analyzed. Unit <core> generated.
+
+Analyzing Entity <rom_block> in library <work> (Architecture <low_level_definition>).
+    Set user-defined property "INITP_00 =  3CCCCFC0C00F333FFF33FCCC00CC30030F0F3FCF30CCF0F30FC03F03FC03CC03" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INITP_01 =  FCCC33033F0F330FF300300CF033F0333CCCCFC0C00F333FFF33FCCC00CC3003" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INITP_02 =  CC3FFFC03F3FFCCFC0F03FC3C3C03C3FFCCC33033F0F330FF300300CF033F033" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INITP_03 =  30C3303030F0C3C033FCF3F33003F00CCC3FFFC03F3FFCCFC0F03FC3C3C03C3F" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INITP_04 =  FCC00F0CCCCC00C000C0F0F3C000F3C330C3303030F0C3C033FCF3F33003F00C" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INITP_05 =  C330F03CCF00C0C3F33C0C30C0000FC0FCC00F0CCCCC00C000C0F0F3C000F3C3" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INITP_06 =  0CC33003003CF03FF03CCFC0003FCC3FC330F03CCF00C0C3F33C0C30C0000FC0" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INITP_07 =  000000000000000000000000000000000CC33003003CF03FF03CCFC0003FCC3F" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_00 =  FFD2FFC8FFDB001100130044003CFFA1FFB9000CFFA90021003800190063FFD7" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_01 =  003F0052FFBBFFB8FFE700400048000A001BFFE5FFAFFFB6004600260013FFC8" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_02 =  0028FFE6001D0047FFD90060FFEB0011FFB9FFF1000A0010FFB2FFBB0016FFCB" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_03 =  0061002CFFC9FFE90023000EFFF1FFEB001BFFD9FFB2FFF5FFF40056FFF3FFF2" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_04 =  0062005D004B000AFFC6000BFFE2001E0045FFCC0061001000180012004CFFE5" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_05 =  FFA3FFB0FFDAFFEF0014FFBA0025FFE6FFD3FFA7FFC9000EFFD90026FFA70012" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_06 =  FFCD005D00300055000B003CFFE0FFE80040FFC00027FFD30062FFCAFFDFFFE4" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_07 =  003DFF9DFFAF004EFFC40021FFA50017FFCA004FFFB3FFEBFFB50037001A001A" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_08 =  FFA7FFA6004E00130016FFA40013FFF0FFDDFFF10063000F002CFFA30021FFF4" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_09 =  FFC9FFB3002EFFDA000D00380030003E0048FFB10030002300490049FFA80024" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_0A =  000BFFEFFFCFFFDD0056005DFFE5FFB90054FFF30011FFB10036005EFFA5FFF6" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_0B =  FFA2FFB2FFA10054FFB2000FFFEA00190035FFF0001EFFD70054001C0011FFED" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_0C =  FFC100150010FFF6FFDE0027005900170061FFB3FFF3004C0032FFBAFFE4FFC1" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_0D =  FFE0005B003F0017FFDEFFE0002B00100051FFA0FFE3FFC8FFC8000D0015FFF2" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_0E =  0027FFBAFFC0FFF5000FFFC2FFDEFFCAFFE1FFF0FFC80022FF9E0013FF9EFFD5" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_0F =  FFB80012FFA1000F000BFFABFFBCFFF0FFA3FFAEFFF4FFB7FFCF002E00110021" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_10 =  0016FFED0050001000260056005CFFE6FFD5FFE40063001B00120052FFC7001B" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_11 =  0042FFA80056FFE7FFE1FFF1FFE90024FFEBFFAC005DFF9DFF9FFFF40015FFAE" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_12 =  004AFFEE0014003CFFF3FFB8005B0029FFBF00590046FFF1FFD2000A0046004B" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_13 =  0039FFED000C0010FFAF0044000BFFBF001BFFC20012004C0038FFE4003E000B" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_14 =  FFE5001B0012000D0038002D0050004AFFF5FFC90045FFA9FFF1002F004FFFC5" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_15 =  0027001C00120019FFEF000A001D0020FFCEFFBB000B002AFFE0FFF5001DFFD2" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_16 =  FFD70031FFEC000CFFE1000FFFDA0056000C000D0020001AFFC8000B00340035" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_17 =  FFCEFFF0FFBD003CFFB1000B000C00110024000AFFDDFFF500110054FFA1002E" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_18 =  FFE2000E0047000A004A004C001500480011000FFFDEFFF4FFF3000E0024005C" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_19 =  FFEDFFCE0038FFBF001FFFEBFFC8003400430033FFAA000B005DFFD00048004F" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_1A =  FFC5001CFFF6FFB000330013000B001FFFD200110012000AFFB700320048FFE5" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_1B =  FFBC0012001FFFE10034FFEC005D000DFFEAFFF6003400570010FFCDFFD4000B" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_1C =  0040000E0037000F005DFFB5FFABFFDFFFED004EFFA4000D000AFFC7FFECFFCC" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_1D =  FFEDFFA8003200610016FFDCFFA50061FFDA0014FFC5FFF5FFE8000D00190025" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_1E =  0014004F000E00200015FFC4FFA40018FFEDFFE1002800520012FFE2FFEEFFB3" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_1F =  000B0025FFCE005BFFC80029000AFFE1002FFFB40019000E0034004F005DFFEC" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_20 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_21 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_22 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_23 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_24 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_25 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_26 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_27 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_28 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_29 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_2A =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_2B =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_2C =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_2D =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_2E =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_2F =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_30 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_31 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_32 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_33 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_34 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_35 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_36 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_37 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_38 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_39 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_3A =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_3B =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_3C =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_3D =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_3E =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_3F =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_A =  000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "INIT_B =  000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "SIM_COLLISION_CHECK =  ALL" for instance <u1> in unit <rom_block>.
+    Set user-defined property "SRVAL_A =  000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "SRVAL_B =  000000000" for instance <u1> in unit <rom_block>.
+    Set user-defined property "WRITE_MODE_A =  WRITE_FIRST" for instance <u1> in unit <rom_block>.
+    Set user-defined property "WRITE_MODE_B =  WRITE_FIRST" for instance <u1> in unit <rom_block>.
+Entity <rom_block> analyzed. Unit <rom_block> generated.
+
+Analyzing generic Entity <adder_acc> in library <work> (Architecture <structure>).
+	RSTDEF = '1'
+Entity <adder_acc> analyzed. Unit <adder_acc> generated.
+
+Analyzing Entity <ram_block> in library <work> (Architecture <low_level_definition>).
+    Set user-defined property "INITP_00 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INITP_01 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INITP_02 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INITP_03 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INITP_04 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INITP_05 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INITP_06 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INITP_07 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_00 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_01 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_02 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_03 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_04 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_05 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_06 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_07 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_08 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_09 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_0A =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_0B =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_0C =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_0D =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_0E =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_0F =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_10 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_11 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_12 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_13 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_14 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_15 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_16 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_17 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_18 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_19 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_1A =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_1B =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_1C =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_1D =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_1E =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_1F =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_20 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_21 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_22 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_23 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_24 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_25 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_26 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_27 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_28 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_29 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_2A =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_2B =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_2C =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_2D =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_2E =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_2F =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_30 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_31 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_32 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_33 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_34 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_35 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_36 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_37 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_38 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_39 =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_3A =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_3B =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_3C =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_3D =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_3E =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_3F =  0000000000000000000000000000000000000000000000000000000000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_A =  000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "INIT_B =  000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "SIM_COLLISION_CHECK =  ALL" for instance <u1> in unit <ram_block>.
+    Set user-defined property "SRVAL_A =  000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "SRVAL_B =  000000000" for instance <u1> in unit <ram_block>.
+    Set user-defined property "WRITE_MODE_A =  READ_FIRST" for instance <u1> in unit <ram_block>.
+    Set user-defined property "WRITE_MODE_B =  READ_FIRST" for instance <u1> in unit <ram_block>.
+Entity <ram_block> analyzed. Unit <ram_block> generated.
+
+Analyzing generic Entity <hex4x7seg> in library <work> (Architecture <arch>).
+	RSTDEF = '1'
+Entity <hex4x7seg> analyzed. Unit <hex4x7seg> generated.
+
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Performing bidirectional port resolution...
+
+Synthesizing Unit <hex4x7seg>.
+    Related source file is "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe1/hex4x7seg.vhd".
+WARNING:Xst:647 - Input <en> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <swrst> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+    Found 16x7-bit ROM for signal <seg>.
+    Found 4x4-bit ROM for signal <an_sel>.
+    Found 14-bit up counter for signal <clock_divider_counter>.
+    Found 1-bit register for signal <clock_divider_out>.
+    Found 2-bit up counter for signal <m4_out>.
+    Found 4-bit 4-to-1 multiplexer for signal <oneOutFourMux>.
+    Summary:
+	inferred   2 ROM(s).
+	inferred   2 Counter(s).
+	inferred   1 D-type flip-flop(s).
+	inferred   4 Multiplexer(s).
+Unit <hex4x7seg> synthesized.
+
+
+Synthesizing Unit <flip_flop>.
+    Related source file is "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe2/flip_flop.vhd".
+    Found 1-bit register for signal <dout>.
+    Summary:
+	inferred   1 D-type flip-flop(s).
+Unit <flip_flop> synthesized.
+
+
+Synthesizing Unit <adder_acc>.
+    Related source file is "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe4/adder_acc.vhd".
+    Found 5-bit up counter for signal <cnt>.
+    Found 10-bit up counter for signal <mem_counter>.
+    Found 44-bit register for signal <tmp>.
+    Found 44-bit adder for signal <tmp$addsub0000> created at line 38.
+    Summary:
+	inferred   2 Counter(s).
+	inferred  44 D-type flip-flop(s).
+	inferred   1 Adder/Subtractor(s).
+Unit <adder_acc> synthesized.
+
+
+Synthesizing Unit <sync_buffer>.
+    Related source file is "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe2/sync_buffer.vhd".
+WARNING:Xst:647 - Input <swrst> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+    Found 5-bit updown counter for signal <cnt>.
+    Found 6-bit comparator greatequal for signal <cnt$cmp_ge0000> created at line 83.
+    Found 6-bit comparator lessequal for signal <cnt$cmp_le0000> created at line 105.
+    Found 5-bit addsub for signal <cnt$mux0006> created at line 72.
+    Found 1-bit register for signal <hyst_out>.
+    Found 1-bit register for signal <state<0>>.
+    Found 6-bit comparator greater for signal <state_0$cmp_gt0000> created at line 105.
+    Found 6-bit comparator less for signal <state_0$cmp_lt0000> created at line 83.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   2 D-type flip-flop(s).
+	inferred   1 Adder/Subtractor(s).
+	inferred   4 Comparator(s).
+Unit <sync_buffer> synthesized.
+
+
+Synthesizing Unit <rom_block>.
+    Related source file is "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe4/rom_block.vhd".
+Unit <rom_block> synthesized.
+
+
+Synthesizing Unit <ram_block>.
+    Related source file is "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe4/ram_block.vhd".
+Unit <ram_block> synthesized.
+
+
+Synthesizing Unit <sync_module>.
+    Related source file is "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe2/sync_module.vhd".
+    Found 8-bit up counter for signal <clock_divider_counter>.
+    Found 1-bit register for signal <clock_divider_out>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   1 D-type flip-flop(s).
+Unit <sync_module> synthesized.
+
+
+Synthesizing Unit <core>.
+    Related source file is "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe4/core.vhd".
+WARNING:Xst:647 - Input <swrst> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:646 - Signal <u4_res<43:16>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+    Found finite state machine <FSM_0> for signal <state>.
+    -----------------------------------------------------------------------
+    | States             | 10                                             |
+    | Transitions        | 12                                             |
+    | Inputs             | 2                                              |
+    | Outputs            | 10                                             |
+    | Clock              | clk                       (rising_edge)        |
+    | Reset              | rst                       (positive)           |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | s0                                             |
+    | Power Up State     | s0                                             |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 1-bit register for signal <rdy>.
+    Found 5-bit register for signal <column>.
+    Found 5-bit adder for signal <column$addsub0000> created at line 202.
+    Found 5-bit comparator less for signal <column$cmp_lt0000> created at line 195.
+    Found 5-bit register for signal <ens>.
+    Found 1-bit register for signal <intern_rst>.
+    Found 13-bit register for signal <j>.
+    Found 13-bit subtractor for signal <j$share0000> created at line 119.
+    Found 5-bit register for signal <k>.
+    Found 5-bit adder for signal <k$addsub0000> created at line 199.
+    Found 5-bit comparator less for signal <k$cmp_lt0000> created at line 196.
+    Found 10-bit register for signal <mem_counter_vecA>.
+    Found 10-bit adder for signal <mem_counter_vecA$add0000> created at line 197.
+    Found 5-bit comparator greatequal for signal <mem_counter_vecA$cmp_ge0000> created at line 196.
+    Found 5-bit comparator greatequal for signal <mem_counter_vecA$cmp_ge0001> created at line 195.
+    Found 5-bit comparator greatequal for signal <mem_counter_vecA$cmp_ge0002> created at line 194.
+    Found 10-bit register for signal <mem_counter_vecB>.
+    Found 10-bit adder for signal <mem_counter_vecB$add0000> created at line 198.
+    Found 10-bit adder for signal <mem_counter_vecB$addsub0000> created at line 198.
+    Found 5-bit up counter for signal <row>.
+    Summary:
+	inferred   1 Finite State Machine(s).
+	inferred   1 Counter(s).
+	inferred  50 D-type flip-flop(s).
+	inferred   6 Adder/Subtractor(s).
+	inferred   5 Comparator(s).
+Unit <core> synthesized.
+
+
+Synthesizing Unit <aufgabe4>.
+    Related source file is "C:/Users/edc10.IN/Documents/dohahn/KDS/Aufgabe4/aufgabe4.vhd".
+Unit <aufgabe4> synthesized.
+
+INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# ROMs                                                 : 2
+ 16x7-bit ROM                                          : 1
+ 4x4-bit ROM                                           : 1
+# Adders/Subtractors                                   : 10
+ 10-bit adder                                          : 3
+ 13-bit subtractor                                     : 1
+ 44-bit adder                                          : 1
+ 5-bit adder                                           : 2
+ 5-bit addsub                                          : 3
+# Counters                                             : 9
+ 10-bit up counter                                     : 1
+ 14-bit up counter                                     : 1
+ 2-bit up counter                                      : 1
+ 5-bit up counter                                      : 2
+ 5-bit updown counter                                  : 3
+ 8-bit up counter                                      : 1
+# Registers                                            : 26
+ 1-bit register                                        : 19
+ 10-bit register                                       : 2
+ 13-bit register                                       : 1
+ 44-bit register                                       : 1
+ 5-bit register                                        : 3
+# Comparators                                          : 17
+ 5-bit comparator greatequal                           : 3
+ 5-bit comparator less                                 : 2
+ 6-bit comparator greatequal                           : 3
+ 6-bit comparator greater                              : 3
+ 6-bit comparator less                                 : 3
+ 6-bit comparator lessequal                            : 3
+# Multiplexers                                         : 1
+ 4-bit 4-to-1 multiplexer                              : 1
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+Analyzing FSM <FSM_0> for best encoding.
+Optimizing FSM <u2/state/FSM> on signal <state[1:10]> with one-hot encoding.
+---------------------
+ State | Encoding
+---------------------
+ s0    | 0000000001
+ s1    | 0000000010
+ s2    | 0000000100
+ s3    | 0000001000
+ s4    | 0000010000
+ s5    | 0000100000
+ s6    | 0001000000
+ s7    | 0010000000
+ s8    | 0100000000
+ s9    | 1000000000
+---------------------
+WARNING:Xst:1290 - Hierarchical block <sb2> is unconnected in block <u1>.
+   It will be removed from the design.
+WARNING:Xst:1290 - Hierarchical block <sb3> is unconnected in block <u1>.
+   It will be removed from the design.
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# FSMs                                                 : 1
+# ROMs                                                 : 2
+ 16x7-bit ROM                                          : 1
+ 4x4-bit ROM                                           : 1
+# Adders/Subtractors                                   : 10
+ 10-bit adder                                          : 3
+ 13-bit subtractor                                     : 1
+ 44-bit adder                                          : 1
+ 5-bit adder                                           : 2
+ 5-bit addsub                                          : 3
+# Counters                                             : 9
+ 10-bit up counter                                     : 1
+ 14-bit up counter                                     : 1
+ 2-bit up counter                                      : 1
+ 5-bit up counter                                      : 2
+ 5-bit updown counter                                  : 3
+ 8-bit up counter                                      : 1
+# Registers                                            : 111
+ Flip-Flops                                            : 111
+# Comparators                                          : 17
+ 5-bit comparator greatequal                           : 3
+ 5-bit comparator less                                 : 2
+ 6-bit comparator greatequal                           : 3
+ 6-bit comparator greater                              : 3
+ 6-bit comparator less                                 : 3
+ 6-bit comparator lessequal                            : 3
+# Multiplexers                                         : 1
+ 4-bit 4-to-1 multiplexer                              : 1
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+WARNING:Xst:1989 - Unit <sync_module>: instances <sb2>, <sb3> of unit <sync_buffer> are equivalent, second instance is removed
+INFO:Xst:1901 - Instance u2/u1 in unit u2/u1 of type RAMB16_S18_S18 has been replaced by RAMB16
+INFO:Xst:1901 - Instance u5/u1 in unit u5/u1 of type RAMB16_S18_S18 has been replaced by RAMB16
+
+Optimizing unit <aufgabe4> ...
+
+Optimizing unit <hex4x7seg> ...
+
+Optimizing unit <adder_acc> ...
+
+Optimizing unit <sync_buffer> ...
+
+Optimizing unit <core> ...
+WARNING:Xst:1710 - FF/Latch <column_4> (without init value) has a constant value of 0 in block <core>. This FF/Latch will be trimmed during the optimization process.
+INFO:Xst:2261 - The FF/Latch <mem_counter_vecA_0> in Unit <core> is equivalent to the following FF/Latch, which will be removed : <mem_counter_vecB_4> 
+WARNING:Xst:638 - in unit core Conflict on KEEP property on signal mem_counter_vecA<0> and mem_counter_vecB<4> mem_counter_vecB<4> signal will be lost.
+INFO:Xst:2261 - The FF/Latch <mem_counter_vecA_1> in Unit <core> is equivalent to the following FF/Latch, which will be removed : <mem_counter_vecB_5> 
+WARNING:Xst:638 - in unit core Conflict on KEEP property on signal mem_counter_vecA<1> and mem_counter_vecB<5> mem_counter_vecB<5> signal will be lost.
+INFO:Xst:2261 - The FF/Latch <mem_counter_vecA_3> in Unit <core> is equivalent to the following FF/Latch, which will be removed : <mem_counter_vecB_7> 
+WARNING:Xst:638 - in unit core Conflict on KEEP property on signal mem_counter_vecA<3> and mem_counter_vecB<7> mem_counter_vecB<7> signal will be lost.
+WARNING:Xst:1710 - FF/Latch <column_4> (without init value) has a constant value of 0 in block <core>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <k_4> (without init value) has a constant value of 0 in block <core>. This FF/Latch will be trimmed during the optimization process.
+INFO:Xst:2261 - The FF/Latch <mem_counter_vecA_1> in Unit <core> is equivalent to the following FF/Latch, which will be removed : <mem_counter_vecB_5> 
+WARNING:Xst:638 - in unit core Conflict on KEEP property on signal mem_counter_vecA<1> and mem_counter_vecB<5> mem_counter_vecB<5> signal will be lost.
+INFO:Xst:2261 - The FF/Latch <mem_counter_vecA_0> in Unit <core> is equivalent to the following FF/Latch, which will be removed : <mem_counter_vecB_4> 
+WARNING:Xst:638 - in unit core Conflict on KEEP property on signal mem_counter_vecA<0> and mem_counter_vecB<4> mem_counter_vecB<4> signal will be lost.
+WARNING:Xst:1710 - FF/Latch <mem_counter_vecA_9> (without init value) has a constant value of 0 in block <core>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <mem_counter_vecB_9> (without init value) has a constant value of 0 in block <core>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:638 - in unit core Conflict on KEEP property on signal mem_counter_vecRes<8> and mem_counter_vecA<9> mem_counter_vecA<9> signal will be lost.
+WARNING:Xst:638 - in unit core Conflict on KEEP property on signal mem_counter_vecA<9> and mem_counter_vecB<9> mem_counter_vecB<9> signal will be lost.
+INFO:Xst:2261 - The FF/Latch <mem_counter_vecA_2> in Unit <core> is equivalent to the following FF/Latch, which will be removed : <mem_counter_vecB_6> 
+WARNING:Xst:638 - in unit core Conflict on KEEP property on signal mem_counter_vecA<2> and mem_counter_vecB<6> mem_counter_vecB<6> signal will be lost.
+INFO:Xst:2261 - The FF/Latch <mem_counter_vecA_3> in Unit <core> is equivalent to the following FF/Latch, which will be removed : <mem_counter_vecB_7> 
+WARNING:Xst:638 - in unit core Conflict on KEEP property on signal mem_counter_vecA<3> and mem_counter_vecB<7> mem_counter_vecB<7> signal will be lost.
+WARNING:Xst:2677 - Node <u1/sb2/cnt_4> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u1/sb2/cnt_3> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u1/sb2/cnt_2> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u1/sb2/cnt_1> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u1/sb2/cnt_0> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u1/sb2/ff1/dout> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u1/sb2/ff2/dout> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u1/sb2/ff3/dout> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u1/sb2/hyst_out> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u1/sb2/state_0> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_16> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_17> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_18> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_19> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_20> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_21> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_22> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_23> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_24> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_25> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_26> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_27> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_28> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_29> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_30> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_31> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_32> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_33> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_34> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_35> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_36> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_37> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_38> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_39> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_40> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_41> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_42> of sequential type is unconnected in block <aufgabe4>.
+WARNING:Xst:2677 - Node <u2/u4/tmp_43> of sequential type is unconnected in block <aufgabe4>.
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block aufgabe4, actual ratio is 5.
+
+Final Macro Processing ...
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 124
+ Flip-Flops                                            : 124
+
+=========================================================================
+
+=========================================================================
+*                           Partition Report                            *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : aufgabe4.ngr
+Top Level Output File Name         : aufgabe4
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : No
+
+Design Statistics
+# IOs                              : 24
+
+Cell Usage :
+# BELS                             : 318
+#      GND                         : 3
+#      INV                         : 20
+#      LUT1                        : 29
+#      LUT2                        : 31
+#      LUT3                        : 43
+#      LUT3_D                      : 1
+#      LUT4                        : 57
+#      LUT4_D                      : 7
+#      LUT4_L                      : 1
+#      MUXCY                       : 56
+#      MUXF5                       : 8
+#      VCC                         : 1
+#      XORCY                       : 61
+# FlipFlops/Latches                : 124
+#      FDC                         : 55
+#      FDCE                        : 67
+#      FDP                         : 2
+# RAMS                             : 2
+#      RAMB16                      : 2
+# Clock Buffers                    : 1
+#      BUFGP                       : 1
+# IO Buffers                       : 23
+#      IBUF                        : 10
+#      OBUF                        : 13
+# MULTs                            : 1
+#      MULT18X18S                  : 1
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 3s200ft256-5 
+
+ Number of Slices:                      105  out of   1920     5%  
+ Number of Slice Flip Flops:            124  out of   3840     3%  
+ Number of 4 input LUTs:                189  out of   3840     4%  
+ Number of IOs:                          24
+ Number of bonded IOBs:                  24  out of    173    13%  
+ Number of BRAMs:                         2  out of     12    16%  
+ Number of MULT18X18s:                    1  out of     12     8%  
+ Number of GCLKs:                         1  out of      8    12%  
+
+---------------------------
+Partition Resource Summary:
+---------------------------
+
+  No Partitions were found in this design.
+
+---------------------------
+
+
+=========================================================================
+TIMING REPORT
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+clk                                | BUFGP                  | 127   |
+-----------------------------------+------------------------+-------+
+
+Asynchronous Control Signals Information:
+----------------------------------------
+-----------------------------------+------------------------+-------+
+Control Signal                     | Buffer(FF name)        | Load  |
+-----------------------------------+------------------------+-------+
+rst                                | IBUF                   | 66    |
+u2/global_rst(u2/global_rst1:O)    | NONE(u2/column_0)      | 59    |
+u2/ens_2(u2/ens_2:Q)               | NONE(u2/u3)            | 1     |
+-----------------------------------+------------------------+-------+
+
+Timing Summary:
+---------------
+Speed Grade: -5
+
+   Minimum period: 6.469ns (Maximum Frequency: 154.592MHz)
+   Minimum input arrival time before clock: 1.700ns
+   Maximum output required time after clock: 9.993ns
+   Maximum combinational path delay: 8.844ns
+
+Timing Detail:
+--------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'clk'
+  Clock period: 6.469ns (frequency: 154.592MHz)
+  Total number of paths / destination ports: 1841 / 236
+-------------------------------------------------------------------------
+Delay:               6.469ns (Levels of Logic = 4)
+  Source:            u2/j_9 (FF)
+  Destination:       u2/j_11 (FF)
+  Source Clock:      clk rising
+  Destination Clock: clk rising
+
+  Data Path: u2/j_9 to u2/j_11
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q              3   0.626   1.066  u2/j_9 (u2/j_9)
+     LUT4:I0->O            1   0.479   0.851  u2/state_cmp_eq000059_SW0 (N30)
+     LUT4_D:I1->O          4   0.479   0.802  u2/state_cmp_eq000059 (u2/state_cmp_eq0000)
+     LUT4_D:I3->O         11   0.479   1.031  u2/j_mux0000<10>11 (u2/N2)
+     LUT4:I2->O            1   0.479   0.000  u2/j_mux0000<8>1 (u2/j_mux0000<8>)
+     FDC:D                     0.176          u2/j_4
+    ----------------------------------------
+    Total                      6.469ns (2.718ns logic, 3.751ns route)
+                                       (42.0% logic, 58.0% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'clk'
+  Total number of paths / destination ports: 9 / 9
+-------------------------------------------------------------------------
+Offset:              1.700ns (Levels of Logic = 2)
+  Source:            sw<7> (PAD)
+  Destination:       u2/u5/u1/u5/u1 (RAM)
+  Destination Clock: clk rising
+
+  Data Path: sw<7> to u2/u5/u1/u5/u1
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             1   0.715   0.681  sw_7_IBUF (u2/sw<7>)
+     begin scope: 'u2/u5/u1'
+     RAMB16:ADDRB11            0.304          u5/u1
+    ----------------------------------------
+    Total                      1.700ns (1.019ns logic, 0.681ns route)
+                                       (59.9% logic, 40.1% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'clk'
+  Total number of paths / destination ports: 93 / 12
+-------------------------------------------------------------------------
+Offset:              9.993ns (Levels of Logic = 4)
+  Source:            u3/m4_out_0 (FF)
+  Destination:       seg<7> (PAD)
+  Source Clock:      clk rising
+
+  Data Path: u3/m4_out_0 to seg<7>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCE:C->Q            14   0.626   1.304  u3/m4_out_0 (u3/m4_out_0)
+     LUT3:I0->O            1   0.479   0.000  u3/Mmux_oneOutFourMux_31 (u3/Mmux_oneOutFourMux_31)
+     MUXF5:I1->O           7   0.314   1.201  u3/Mmux_oneOutFourMux_2_f5_0 (u3/oneOutFourMux<1>)
+     LUT4:I0->O            1   0.479   0.681  u3/Mrom_seg41 (seg_5_OBUF)
+     OBUF:I->O                 4.909          seg_5_OBUF (seg<5>)
+    ----------------------------------------
+    Total                      9.993ns (6.807ns logic, 3.186ns route)
+                                       (68.1% logic, 31.9% route)
+
+=========================================================================
+Timing constraint: Default path analysis
+  Total number of paths / destination ports: 4 / 4
+-------------------------------------------------------------------------
+Delay:               8.844ns (Levels of Logic = 3)
+  Source:            rst (PAD)
+  Destination:       an<2> (PAD)
+
+  Data Path: rst to an<2>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O            71   0.715   2.060  rst_IBUF (rst_IBUF)
+     LUT3:I0->O            1   0.479   0.681  u3/an<2>1 (an_2_OBUF)
+     OBUF:I->O                 4.909          an_2_OBUF (an<2>)
+    ----------------------------------------
+    Total                      8.844ns (6.103ns logic, 2.741ns route)
+                                       (69.0% logic, 31.0% route)
+
+=========================================================================
+
+
+Total REAL time to Xst completion: 6.00 secs
+Total CPU time to Xst completion: 6.39 secs
+ 
+--> 
+
+Total memory usage is 276104 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :   70 (   0 filtered)
+Number of infos    :   10 (   0 filtered)
+
