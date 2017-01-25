@@ -76,7 +76,7 @@ ARCHITECTURE structure OF core IS
   SIGNAL ens: std_logic_vector(4 DOWNTO 0);
   
   -- U1 - Addressgenerator
-  CONSTANT N: unsigned(4 downto 0) := "10000";                    -- matrix size NxN
+  CONSTANT N: unsigned(4 downto 0) := "10000";                     -- matrix size NxN
   CONSTANT MEM_COUNTER_BITS: natural := 10;                       -- Number of bits for MEM_COUNTER_N
   CONSTANT START_VEC_B: unsigned(8 downto 0) := "100000000";      -- First address of vector B
   SIGNAL mem_counter_vecA: unsigned(MEM_COUNTER_BITS-1 downto 0); -- Actual adress of vector A
@@ -179,9 +179,9 @@ BEGIN
 
   -- Unit1 - Addressgenerator
   PROCESS (global_rst, clk) 
-    variable row: unsigned(4 downto 0);
-    variable column: unsigned(4 downto 0);
-    variable k: unsigned(4 downto 0);
+    variable row: unsigned(3 downto 0);
+    variable column: unsigned(3 downto 0);
+    variable k: unsigned(3 downto 0);
   BEGIN
     IF global_rst=RSTDEF THEN
       mem_counter_vecA <= (OTHERS => '0');
@@ -191,23 +191,15 @@ BEGIN
       k := (OTHERS => '0');
     ELSIF rising_edge(clk) THEN
       IF ens(0)='1' THEN
-        IF row<N THEN
-          IF column<N THEN
-            IF k<N THEN
-              mem_counter_vecA <= resize(row*N + k, mem_counter_vecA'length);
-              mem_counter_vecB <= resize(column + k*N + START_VEC_B, mem_counter_vecB'length);
-              k := k + 1;
-            END IF;
-            IF k=N THEN
-              column := column + 1;
-              k := (OTHERS => '0');
-            END IF;
-          END IF;
-          IF column=N THEN
+        mem_counter_vecA <= resize(row*N + k, mem_counter_vecA'length);
+        mem_counter_vecB <= resize(column + k*N + START_VEC_B, mem_counter_vecB'length);
+        IF k="1111" THEN
+          IF column="1111" THEN
             row := row + 1;
-            column := (OTHERS => '0');
           END IF;
+          column := column + 1;
         END IF;
+        k := k + 1;
       END IF;
     END IF;
   END PROCESS;
